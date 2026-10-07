@@ -13,7 +13,7 @@ You can work in one of two places. Pick one:
 
 ## Case 1: working on Ares
 
-All you need is a terminal that can run `ssh`. Geant4, CMake, git and the compilers are already on Ares. The one extra tool, uv, you'll install on Ares during [setup](02-welcome-and-setup.md#install-uv-ares-only), with a single command.
+All you need is a terminal that can run `ssh`. Geant4, CMake, git and the compilers are already on Ares. The extra tools, uv and opencode, you'll install on Ares during the tutorial, each with a single command ([uv](02-welcome-and-setup.md#install-uv-ares-only), [opencode](06-opencode-setup.md)).
 
 | Your system | Terminal to use | `ssh` included? |
 |---|---|---|
@@ -47,7 +47,7 @@ Supported: **Linux** and **macOS** (Intel or Apple Silicon). On **Windows**, ins
 | C++17 compiler | Every Geant4 simulation is a C++ program you compile | `c++ --version` |
 | CMake ≥ 3.16 and make | Build system for Geant4 and the simulations | `cmake --version`, `make --version` |
 | xerces-c and expat (headers) | XML parsing; xerces-c is needed for **GDML** geometry files, which the agent uses. Only needed if you [compile Geant4 from source](03-install-geant4.md#option-b-compile-from-source) | — |
-| A coding agent | [opencode](https://opencode.ai) or [Claude Code](https://claude.com/claude-code); see [Setting up the agent](06-agent-setup.md) | `opencode --version` or `claude --version` |
+| A coding agent | [opencode](https://opencode.ai), the terminal version, installed in [Setting up opencode](06-opencode-setup.md). Claude Code also works | `opencode --version` or `claude --version` |
 
 Then there's **Geant4 itself**, which has its own page: [Installing Geant4](03-install-geant4.md) (about 2 GB to download). If you install Geant4 with conda (Option A), the conda environment brings its own compiler, CMake and make. You still need git, curl, Python and uv.
 

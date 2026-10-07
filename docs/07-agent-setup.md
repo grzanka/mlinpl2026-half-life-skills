@@ -1,6 +1,6 @@
 # Setting up the agent: the geant4-ai toolkit (14:45)
 
-[← First simulation](05-first-simulation.md) · [Agenda](00-agenda.md)
+[← Setting up opencode](06-opencode-setup.md) · [Agenda](00-agenda.md)
 
 The geant4-ai toolkit turns a general coding agent (opencode or Claude Code) into a Geant4 assistant. It provides a knowledge base, templates, helper scripts, an application skeleton, and slash commands such as `/g4-new`.
 
@@ -34,25 +34,39 @@ cd "$HOME/geant4-ai/toolkit"
 
 ## 3. Create your workspace
 
-**1. Run the bootstrap script.** It asks which tool you use, opencode or Claude Code:
+The workspace is where the agent writes each simulation: its code, build and output. Output can reach gigabytes, so on Ares it goes to `$SCRATCH`, the large scratch filesystem, rather than your small home directory. On a cluster, `bootstrap.sh` refuses a workspace inside `$HOME`.
+
+**1. Run the bootstrap script.** It asks which tool you use; answer opencode (or Claude Code, if you use that).
+
+On a laptop:
 
 ```bash
 bash scripts/bootstrap.sh "$HOME/g4work"
 ```
 
-**2. Enter the workspace:**
+On Ares:
+
+```bash
+bash scripts/bootstrap.sh "$SCRATCH/g4work"
+```
+
+**2. Enter the workspace.** On a laptop:
 
 ```bash
 cd "$HOME/g4work"
 ```
 
+On Ares:
+
+```bash
+cd "$SCRATCH/g4work"
+```
+
+> `$SCRATCH` on Ares is cleaned automatically: files older than 30 days are removed. Copy anything you want to keep (see [copying files from Ares](05-first-simulation.md#on-ares-copy-the-plot-to-your-computer)).
+
 ## 4. Start the agent
 
-<!-- TODO: how to get the LLM Lab token and point opencode at DeepSeek on PLGrid -->
-
-**TODO:** getting your LLM Lab token and setting it in the environment.
-
-Start the agent, or run `claude` instead if you chose Claude Code:
+opencode must already be installed and logged in to PLGrid ([Setting up opencode](06-opencode-setup.md)). Start it in the workspace, or run `claude` instead if you chose Claude Code:
 
 ```bash
 opencode
@@ -76,4 +90,4 @@ Approve each stage as the agent goes: geometry, physics, beam, scoring, compile,
 
 ---
 
-[← First simulation](05-first-simulation.md) · [Agenda](00-agenda.md)
+[← Setting up opencode](06-opencode-setup.md) · [Agenda](00-agenda.md)
