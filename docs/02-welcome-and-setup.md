@@ -4,7 +4,7 @@
 
 By 14:15 you should have:
 
-- [ ] a terminal on a machine with Geant4 (an Ares compute node, or your laptop)
+- [ ] a terminal on a machine with Geant4 (Ares, or your laptop)
 - [ ] a copy of this repository
 - [ ] a copy of [geant4-ai](https://github.com/CTPPS/geant4-ai), with the Geant4 source in it
 
@@ -64,18 +64,6 @@ echo 'export G4_SOURCE_DIR="$HOME/geant4-ai/external/geant4"' >> ~/.bashrc
 ```bash
 source ~/.bashrc
 ```
-
-## Get a compute node (Ares only)
-
-So far you've been on the Ares **login node**, which everyone shares. It's fine for cloning and installing uv, but not for compiling or running simulations. For that, ask Slurm for your own slice of a compute node: 6 CPU cores and 20 GB of RAM, for 5 hours.
-
-```bash
-srun -p cpu -c 6 --mem=20G -t 05:00:00 --pty bash
-```
-
-When the prompt changes from `login01` to a compute node name such as `ac0123`, you're there. Everything from here on runs on that node.
-
-> Nodes are reserved for this tutorial, so the job should start within seconds. If you close the terminal or lose the SSH connection, the job ends; log in again and rerun `srun`. Files in your home directory are kept.
 
 ## Activate and check Geant4 (Ares and laptop)
 
