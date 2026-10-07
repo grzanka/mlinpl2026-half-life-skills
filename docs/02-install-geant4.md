@@ -91,10 +91,10 @@ curl -fL -o /tmp/Miniforge3.sh "https://github.com/conda-forge/miniforge/release
 bash /tmp/Miniforge3.sh -b -u -p "$HOME/miniforge3"
 ```
 
-**3. Create an environment called `g4` with Geant4 and a compiler.** This is the long step, about 2 GB to download:
+**3. Create an environment called `g4` with Geant4 11.4.3 (the same version as the source) and a compiler.** This is the long step, about 2 GB to download:
 
 ```bash
-"$HOME/miniforge3/bin/conda" create -y -n g4 -c conda-forge geant4 cmake make cxx-compiler
+"$HOME/miniforge3/bin/conda" create -y -n g4 -c conda-forge geant4=11.4.3 cmake make cxx-compiler
 ```
 
 **4. Optional: free 2 GB of downloaded package files:**
