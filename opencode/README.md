@@ -11,4 +11,4 @@ The plugin comes from [groundnuty/plgrid-llmlab-opencode](https://github.com/gro
 
 We don't use its full `opencode.json` here: the geant4-ai toolkit brings its own agents, commands and permissions, and the extra MCP server needs Node.js, which you may not have (on Ares, for example).
 
-The default model, `Qwen/Qwen3.6-27B`, is open to every PLGrid grant. `deepseek-ai/DeepSeek-V4.1-Flash` is faster but only available to some grants; switch to it with `/models` in opencode if your key can use it.
+The default model, `deepseek-ai/DeepSeek-V4.1-Flash`, is the fastest reliable one, but only some PLGrid grants can use it. If yours can't, switch to `Qwen/Qwen3.6-27B`, which every grant can use.

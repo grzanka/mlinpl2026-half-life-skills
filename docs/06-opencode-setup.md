@@ -100,13 +100,15 @@ opencode asks before it runs a command or edits a file. Read what it wants to do
 
 ## Which model
 
-The default is `Qwen/Qwen3.6-27B`, because every PLGrid grant can use it. Others, all switchable with `/models`:
+The default is `deepseek-ai/DeepSeek-V4.1-Flash`: the fastest of the reliable models. Others, all switchable with `/models`:
 
 | Model | Notes |
 |---|---|
-| `Qwen/Qwen3.6-27B` | Default. Reliable with tools, a bit slow |
-| `deepseek-ai/DeepSeek-V4.1-Flash` | Faster and as reliable, but only some grants can use it |
-| `google/gemma-4-31B` | Open to every grant; used for short background tasks such as session titles |
+| `deepseek-ai/DeepSeek-V4.1-Flash` | Default. Fast and reliable with tools, but only some grants can use it |
+| `Qwen/Qwen3.6-27B` | Every grant can use it. Reliable with tools, a bit slower |
+| `google/gemma-4-31B` | Every grant can use it; used for short background tasks such as session titles |
+
+If DeepSeek answers *"not available for grant"*, make Qwen your default: in `~/.config/opencode/opencode.json`, change the `model` line to `"model": "plgrid/Qwen/Qwen3.6-27B"`.
 
 Several other models in the list can't use tools at all, so they can't run commands or edit files. Measured comparisons of all of them are in [plgrid-llmlab-opencode](https://github.com/groundnuty/plgrid-llmlab-opencode/blob/main/research/models.md).
 
