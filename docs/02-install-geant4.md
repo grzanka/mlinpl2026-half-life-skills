@@ -2,7 +2,7 @@
 
 [← Welcome & setup](01-welcome-and-setup.md) · [Agenda](00-agenda.md) · [Next: test the installation →](03-test-geant4.md)
 
-We use **Geant4 11.4.2**, released on 17 June 2026. It's the version installed on Ares, so laptops and the cluster run the same code. (11.4.3 came out on 1 October 2026; don't use it for this tutorial.) Everything on this page (the conda package, the source and the physics datasets) is pinned to this version.
+We use **Geant4 11.4.2**, released on 17 June 2026. It's the version installed on Ares, so laptops and the cluster run the same code. Everything on this page (the conda package, the source and the physics datasets) is pinned to this version.
 
 > **On Ares? Skip this page.** Geant4 is already installed there. Go to [Test the installation](03-test-geant4.md).
 
