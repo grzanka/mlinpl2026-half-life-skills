@@ -55,11 +55,13 @@ cd build/water-phantom
 ./water_phantom ../../examples/water-phantom/run.mac
 ```
 
-**6. Get the result.** This prints the Bragg peak position and the range. If you have matplotlib installed, it also saves a plot, `depth_dose.png`:
+**6. Get the result.** This prints the Bragg peak position and the range, and saves a plot, `depth_dose.png`. `uv run` gives the script a recent Python with matplotlib, so it works the same on Ares (where the system Python is 3.6) and on your laptop:
 
 ```bash
-python3 ../../examples/water-phantom/plot.py depth_dose.csv
+uv run --with matplotlib python ../../examples/water-phantom/plot.py depth_dose.csv
 ```
+
+> Without uv, plain `python3 ../../examples/water-phantom/plot.py depth_dose.csv` also works: it prints the numbers and skips the plot if matplotlib is missing.
 
 ## Check against the textbook
 
@@ -76,7 +78,7 @@ The NIST [PSTAR](https://physics.nist.gov/PhysRefData/Star/Text/PSTAR.html) data
 
 ## Exercise: change one thing and rerun
 
-Edit `examples/water-phantom/run.mac` (for example with `nano`), then repeat step 4 and step 5 from inside `build/water-phantom`. You don't need to recompile, because only the macro changed.
+Edit `examples/water-phantom/run.mac` (for example with `nano`), then repeat step 5 and step 6 from inside `build/water-phantom`. You don't need to recompile, because only the macro changed.
 
 1. Change `/gps/energy 150 MeV` to `100 MeV`. Does the peak move to about 7.7 cm?
 2. Change `/gps/particle proton` to `e-`. Where did the Bragg peak go?
