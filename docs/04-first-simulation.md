@@ -1,6 +1,6 @@
 # First simulation: proton beam in water (14:15–14:45)
 
-[← Test the installation](03-test-geant4.md) · [Agenda](00-agenda.md)
+[← Test the installation](03-test-geant4.md) · [Agenda](00-agenda.md) · [Next: set up the agent →](05-agent-setup.md)
 
 No AI in this part. We run a Geant4 simulation by hand first, so that later you can see what the agent is doing on your behalf.
 
@@ -82,4 +82,4 @@ Edit `examples/water-phantom/run.mac` (for example with `nano`), then repeat ste
 
 ---
 
-[← Test the installation](03-test-geant4.md) · [Agenda](00-agenda.md)
+[← Test the installation](03-test-geant4.md) · [Agenda](00-agenda.md) · [Next: set up the agent →](05-agent-setup.md)

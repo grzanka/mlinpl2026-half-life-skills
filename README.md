@@ -8,3 +8,4 @@
 3. [Installing Geant4: get it and compile](docs/02-install-geant4.md)
 4. [Installing Geant4: test the installation](docs/03-test-geant4.md)
 5. [First simulation: proton beam in water](docs/04-first-simulation.md)
+6. [Setting up the agent: the geant4-ai toolkit](docs/05-agent-setup.md)

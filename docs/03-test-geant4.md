@@ -50,7 +50,7 @@ You should see the following:
   | `G4ENSDFSTATEDATA`  | G4ENSDFSTATE        | Nuclear level properties                 |
   | `G4INCLDATA`, `G4ABLADATA`, `G4PIIDATA`, `G4SAIDXSDATA`, `G4REALSURFACEDATA`, `G4CHANNELINGDATA` | the smaller ones | Specialised models |
 
-- **`GEANT4_SOURCE_DIR`**, which you set in [Step 1 of the installation](02-install-geant4.md#step-1-everyone-get-the-geant4-source-code). The geant4-ai toolkit uses it to find the Geant4 sources. On Ares, the `module load` sets it for you. <!-- TODO: make the Ares module set GEANT4_SOURCE_DIR -->
+- **`G4_SOURCE_DIR`**, which you set in [Step 1 of the installation](02-install-geant4.md#step-1-everyone-get-the-geant4-source-code). The geant4-ai toolkit uses it to find the Geant4 source. <!-- TODO: on Ares, does module load geant4/11.4.2 set G4_SOURCE_DIR? If not, give the export line here -->
 
 Activation also adds Geant4's `bin` directory to `PATH`, so that `geant4-config` works. On Linux, the source-build activation script also extends `LD_LIBRARY_PATH` so programs can find the Geant4 libraries; on macOS it's `DYLD_LIBRARY_PATH`.
 
@@ -75,7 +75,7 @@ geant4-config --check-datasets
 You should see directories such as `examples`, `source` and `cmake`:
 
 ```bash
-ls "$GEANT4_SOURCE_DIR"
+ls "$G4_SOURCE_DIR"
 ```
 
 ## 6. Build and run an example shipped with Geant4
@@ -85,7 +85,7 @@ This is the real end-to-end test. It compiles example B1 from the Geant4 sources
 **1. Configure the example:**
 
 ```bash
-cmake -S "$GEANT4_SOURCE_DIR/examples/basic/B1" -B "$HOME/geant4/B1-build"
+cmake -S "$G4_SOURCE_DIR/examples/basic/B1" -B "$HOME/geant4/B1-build"
 ```
 
 **2. Compile it:**

@@ -42,7 +42,7 @@ What that means for each installation option:
 
 ## Step 1 (everyone): get the Geant4 source code
 
-The geant4-ai toolkit we use in the afternoon reads the Geant4 source code: the C++ files, the examples and the macros. The agent looks things up there instead of relying on its memory. The conda package contains only compiled libraries and headers, so **you need the source even if you install with conda.**
+The geant4-ai toolkit we use in the afternoon searches your exact Geant4 source for UI commands, GDML tags and physics-list contents, instead of relying on its knowledge base or the model's memory. It finds the source through the `G4_SOURCE_DIR` variable. The conda package contains only compiled libraries and headers, so **you need the source even if you install with conda.**
 
 **1. Create a directory for Geant4 and enter it:**
 
@@ -65,10 +65,10 @@ tar xzf geant4-v11.4.2.tar.gz
 **4. Tell your shell where the source is.** Use `~/.zshrc` instead of `~/.bashrc` on macOS:
 
 ```bash
-echo 'export GEANT4_SOURCE_DIR="$HOME/geant4/geant4-v11.4.2"' >> ~/.bashrc
+echo 'export G4_SOURCE_DIR="$HOME/geant4/geant4-v11.4.2"' >> ~/.bashrc
 ```
 
-<!-- TODO: align variable name with what the geant4-ai toolkit expects -->
+> The geant4-ai repository also ships a Geant4 source tree as a git submodule (`external/geant4`). We download the source separately so that it's exactly 11.4.2, the version you run.
 
 ## Step 2: install Geant4, picking one option
 

@@ -6,8 +6,6 @@ By 14:15 you should have:
 
 - [ ] a terminal on a machine with Geant4 (Ares, or your laptop)
 - [ ] a copy of this repository
-- [ ] an LLM Lab token
-- [ ] a running agent that answers a prompt
 
 ## Where to work
 
@@ -40,17 +38,9 @@ git clone https://github.com/grzanka/mlinpl2026-half-life-skills.git
 cd mlinpl2026-half-life-skills
 ```
 
-## LLM Lab token and the agent
+## The agent
 
-<!-- TODO: which agent, how to get the LLM Lab token, how to point the agent at the DeepSeek endpoint on PLGrid -->
-
-**TODO:** steps for getting your token, setting it in the environment, and starting the agent.
-
-As a test, ask the agent:
-
-> What version of Geant4 is installed here? Check it with a command; don't guess.
-
-The agent should run `geant4-config --version` instead of answering from memory. That's the habit we'll build on all afternoon.
+We start the agent after the first simulation, which we do by hand. Setup instructions: [Setting up the agent](05-agent-setup.md).
 
 ---
 
