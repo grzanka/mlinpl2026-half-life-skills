@@ -49,7 +49,7 @@ cd build/water-phantom
 ./water_phantom ../../examples/water-phantom/run.mac
 ```
 
-**5. Plot the depth–dose curve.** This prints the Bragg peak position and the range, and saves `depth_dose.png`:
+**5. Get the result.** This prints the Bragg peak position and the range. If you have matplotlib installed, it also saves a plot, `depth_dose.png`:
 
 ```bash
 python3 ../../examples/water-phantom/plot.py depth_dose.csv

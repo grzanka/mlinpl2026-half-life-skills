@@ -4,7 +4,7 @@
 
 > **On Ares? Skip this page.** Geant4 is already installed there. Go to [Test the installation](03-test-geant4.md).
 
-**Please do this at home, before the tutorial.** There are 25 of us, and each install downloads about 2 GB. That's about 50 GB over the conference Wi-Fi if everyone does it on the day.
+**Please do this at home, before the tutorial.** Each install downloads about 2 GB.
 
 Run the commands one at a time, in the same terminal, and check that each one finishes without errors before running the next.
 
@@ -91,10 +91,10 @@ curl -fL -o /tmp/Miniforge3.sh "https://github.com/conda-forge/miniforge/release
 bash /tmp/Miniforge3.sh -b -u -p "$HOME/miniforge3"
 ```
 
-**3. Create an environment called `g4` with Geant4, a compiler and plotting tools.** This is the long step, about 2 GB to download:
+**3. Create an environment called `g4` with Geant4 and a compiler.** This is the long step, about 2 GB to download:
 
 ```bash
-"$HOME/miniforge3/bin/conda" create -y -n g4 -c conda-forge geant4 cmake make cxx-compiler python matplotlib numpy
+"$HOME/miniforge3/bin/conda" create -y -n g4 -c conda-forge geant4 cmake make cxx-compiler
 ```
 
 **4. Optional: free 2 GB of downloaded package files:**
@@ -118,13 +118,13 @@ sudo apt-get update
 ```
 
 ```bash
-sudo apt-get install -y build-essential cmake libexpat1-dev curl python3-matplotlib python3-numpy
+sudo apt-get install -y build-essential cmake libexpat1-dev curl
 ```
 
 **Fedora / RHEL / Rocky / Alma:**
 
 ```bash
-sudo dnf install -y gcc-c++ make cmake expat-devel curl python3-matplotlib python3-numpy
+sudo dnf install -y gcc-c++ make cmake expat-devel curl
 ```
 
 **macOS:** install the Apple command-line tools (a dialog pops up; click *Install*):
