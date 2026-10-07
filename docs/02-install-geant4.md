@@ -2,7 +2,7 @@
 
 [← Welcome & setup](01-welcome-and-setup.md) · [Agenda](00-agenda.md) · [Next: test the installation →](03-test-geant4.md)
 
-We use **Geant4 11.4.3**, released on 1 October 2026. It's the latest patch of the 11.4 series. Everything on this page (the conda package, the source and the physics datasets) is pinned to this version.
+We use **Geant4 11.4.2**, released on 17 June 2026. It's the version installed on Ares, so laptops and the cluster run the same code. (11.4.3 came out on 1 October 2026; don't use it for this tutorial.) Everything on this page (the conda package, the source and the physics datasets) is pinned to this version.
 
 > **On Ares? Skip this page.** Geant4 is already installed there. Go to [Test the installation](03-test-geant4.md).
 
@@ -19,7 +19,7 @@ Run the commands one at a time, in the same terminal, and check that each one fi
 
 ### Disk space and download size
 
-Geant4 itself is small. The **physics datasets** are what take the space: tables of cross-sections, decay data and so on. Geant4 11.4.3 needs 12 of them by default:
+Geant4 itself is small. The **physics datasets** are what take the space: tables of cross-sections, decay data and so on. Geant4 11.4.2 needs 12 of them by default:
 
 | Dataset         | Download    | Unpacked    | What it holds                         |
 |-----------------|-------------|-------------|---------------------------------------|
@@ -38,7 +38,7 @@ What that means for each installation option:
 | A: conda                 | 2.0 GB   | about 5 GB, plus 2 GB of package cache (free it with `conda clean -a -y`) |
 | B: compile from source   | 1.7 GB   | about 10 GB during the build, about 3 GB after you delete the build directory |
 
-> The conda and build-directory disk figures are estimates. The download sizes and the dataset table are measured for Geant4 11.4.3.
+> The conda and build-directory disk figures are estimates. The download sizes and the dataset table are measured for Geant4 11.4.2.
 
 ## Step 1 (everyone): get the Geant4 source code
 
@@ -50,22 +50,22 @@ The geant4-ai toolkit we use in the afternoon reads the Geant4 source code: the 
 mkdir -p "$HOME/geant4" && cd "$HOME/geant4"
 ```
 
-**2. Download the Geant4 11.4.3 source (38 MB):**
+**2. Download the Geant4 11.4.2 source (38 MB):**
 
 ```bash
-curl -fL -O https://geant4-data.web.cern.ch/releases/geant4-v11.4.3.tar.gz
+curl -fL -O https://geant4-data.web.cern.ch/releases/geant4-v11.4.2.tar.gz
 ```
 
-**3. Unpack it into `~/geant4/geant4-v11.4.3`:**
+**3. Unpack it into `~/geant4/geant4-v11.4.2`:**
 
 ```bash
-tar xzf geant4-v11.4.3.tar.gz
+tar xzf geant4-v11.4.2.tar.gz
 ```
 
 **4. Tell your shell where the source is.** Use `~/.zshrc` instead of `~/.bashrc` on macOS:
 
 ```bash
-echo 'export GEANT4_SOURCE_DIR="$HOME/geant4/geant4-v11.4.3"' >> ~/.bashrc
+echo 'export GEANT4_SOURCE_DIR="$HOME/geant4/geant4-v11.4.2"' >> ~/.bashrc
 ```
 
 <!-- TODO: align variable name with what the geant4-ai toolkit expects -->
@@ -93,10 +93,10 @@ curl -fL -o /tmp/Miniforge3.sh "https://github.com/conda-forge/miniforge/release
 bash /tmp/Miniforge3.sh -b -u -p "$HOME/miniforge3"
 ```
 
-**3. Create an environment called `g4` with Geant4 11.4.3 (the same version as the source) and a compiler.** This is the long step, about 2 GB to download:
+**3. Create an environment called `g4` with Geant4 11.4.2 (the same version as the source) and a compiler.** This is the long step, about 2 GB to download:
 
 ```bash
-"$HOME/miniforge3/bin/conda" create -y -n g4 -c conda-forge geant4=11.4.3 cmake make cxx-compiler
+"$HOME/miniforge3/bin/conda" create -y -n g4 -c conda-forge geant4=11.4.2 cmake make cxx-compiler
 ```
 
 **4. Optional: free 2 GB of downloaded package files:**
@@ -154,7 +154,7 @@ cd "$HOME/geant4"
 **2. Configure.** `GEANT4_INSTALL_DATA=ON` makes the build download the physics datasets (1.65 GB) for you:
 
 ```bash
-cmake -S geant4-v11.4.3 -B build -DCMAKE_INSTALL_PREFIX="$HOME/geant4/install" -DCMAKE_BUILD_TYPE=Release -DGEANT4_INSTALL_DATA=ON
+cmake -S geant4-v11.4.2 -B build -DCMAKE_INSTALL_PREFIX="$HOME/geant4/install" -DCMAKE_BUILD_TYPE=Release -DGEANT4_INSTALL_DATA=ON
 ```
 
 **3. Compile on all CPU cores.** This is the long step, about 15–25 min on 10+ cores:

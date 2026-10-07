@@ -11,7 +11,7 @@ Geant4 isn't a single program. It's a set of libraries plus about 2 GB of physic
 **Ares:**
 
 ```bash
-module load geant4  # TODO: confirm module name/version on Ares
+module load geant4/11.4.2
 ```
 
 **Conda (Option A):**
@@ -56,7 +56,7 @@ Activation also adds Geant4's `bin` directory to `PATH`, so that `geant4-config`
 
 ## 3. Check the version
 
-It should print `11.4.3`:
+It should print `11.4.2`:
 
 ```bash
 geant4-config --version
