@@ -12,49 +12,19 @@ By 14:15 you should have:
 ## Where to work
 
 - **Ares (recommended).** Geant4 is preinstalled, so there's nothing to install. Accounts are handed out at the start of the session.
-- **Your laptop.** Works on Linux and macOS (Intel or Apple Silicon). On Windows, use WSL2 (Ubuntu). Install Geant4 first: [Installing Geant4 on your laptop](02-install-geant4.md).
+- **Your laptop.** Works on Linux and macOS (Intel or Apple Silicon). On Windows, use WSL2 (Ubuntu). Install Geant4 first: [Installing Geant4](02-install-geant4.md).
 
-## On Ares
+## Log in to Ares (Ares only)
 
-**1. Log in** (replace `plgLOGIN` with the login you were given):
+Replace `plgLOGIN` with the login you were given:
 
 ```bash
 ssh plgLOGIN@ares.cyfronet.pl
 ```
 
-**2. Load Geant4:**
+## Activate and check Geant4 (Ares and laptop)
 
-```bash
-module load geant4  # TODO: confirm module name/version on Ares
-```
-
-**3. Check that it works.** It should print a version number:
-
-```bash
-geant4-config --version
-```
-
-## On your laptop
-
-**1. Activate Geant4.** Use the line that matches how you installed it.
-
-If you installed with conda:
-
-```bash
-source "$HOME/miniforge3/bin/activate" g4
-```
-
-If you built it from source:
-
-```bash
-source "$HOME/geant4/install/bin/geant4.sh"
-```
-
-**2. Check that it works:**
-
-```bash
-geant4-config --version
-```
+Follow [Test the installation](03-test-geant4.md). On Ares, step 6 there (building example B1) is optional. At minimum, `geant4-config --version` has to work.
 
 ## Get this repository (both Ares and laptop)
 
@@ -84,4 +54,4 @@ The agent should run `geant4-config --version` instead of answering from memory.
 
 ---
 
-[← Agenda](00-agenda.md) · [Next: install Geant4 (laptop only) →](02-install-geant4.md) · [Skip to: first simulation →](03-first-simulation.md)
+[← Agenda](00-agenda.md) · [Next: install Geant4 (laptop only) →](02-install-geant4.md) · [Skip to: test the installation →](03-test-geant4.md)
