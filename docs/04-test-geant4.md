@@ -1,6 +1,6 @@
 # Installing Geant4: test the installation
 
-[← Install Geant4](02-install-geant4.md) · [Agenda](00-agenda.md) · [Next: first simulation →](04-first-simulation.md)
+[← Install Geant4](03-install-geant4.md) · [Agenda](00-agenda.md) · [Next: first simulation →](05-first-simulation.md)
 
 Run these checks in a **new terminal**, so that the changes made during installation take effect.
 
@@ -8,10 +8,10 @@ Run these checks in a **new terminal**, so that the changes made during installa
 
 Geant4 isn't a single program. It's a set of libraries plus about 2 GB of physics data. Before using it, you **activate** it in your terminal, which sets a few environment variables. Repeat the activation in every new terminal. Use the command that matches your installation.
 
-**Ares:**
+**Ares:** load Geant4 and CMake (Ares has no `cmake` by default). This CMake is built with the same GCC 14.3 as Geant4:
 
 ```bash
-module load geant4/11.4.2
+module load geant4/11.4.2 cmake/3.31.8-gcccore-14.3.0
 ```
 
 **Conda (Option A):**
@@ -23,7 +23,7 @@ source "$HOME/miniforge3/bin/activate" g4
 **Compiled from source (Option B):**
 
 ```bash
-source "$HOME/geant4/install/bin/geant4.sh"
+source "$HOME/geant4-ai/geant4/install/bin/geant4.sh"
 ```
 
 > To activate automatically, add that line to `~/.bashrc` (Linux) or `~/.zshrc` (macOS).
@@ -38,7 +38,7 @@ env | grep -E '^G4|GEANT4' | sort
 
 You should see the following:
 
-- **One `G4…DATA` variable per physics dataset.** Geant4 reads these to find its data at run time, so they matter: if one is missing or points to the wrong place, the simulation stops with a "dataset not found" error, or silently runs without that piece of physics.
+- **Where the physics datasets are.** Geant4 reads this at run time, so it matters: if a dataset can't be found, the simulation stops with a "dataset not found" error, or silently runs without that piece of physics.
 
   | Variable            | Dataset             | Used for                                |
   |---------------------|---------------------|-----------------------------------------|
@@ -50,7 +50,12 @@ You should see the following:
   | `G4ENSDFSTATEDATA`  | G4ENSDFSTATE        | Nuclear level properties                 |
   | `G4INCLDATA`, `G4ABLADATA`, `G4PIIDATA`, `G4SAIDXSDATA`, `G4REALSURFACEDATA`, `G4CHANNELINGDATA` | the smaller ones | Specialised models |
 
-- **`G4_SOURCE_DIR`**, which you set in [Step 1 of the installation](02-install-geant4.md#step-1-everyone-get-the-geant4-source-code). The geant4-ai toolkit uses it to find the Geant4 source. <!-- TODO: on Ares, does module load geant4/11.4.2 set G4_SOURCE_DIR? If not, give the export line here -->
+  - **Laptop (conda or source build): one `G4…DATA` variable per dataset**, as in the table above.
+  - **Ares: a single `GEANT4_DATA_DIR`** pointing to the directory that holds all the datasets (on Ares, `/net/software/testing/data/Geant4-data/11.4`). When a dataset has no variable of its own, Geant4 looks for it there. You'll also see `G4INSTALL`, `G4LIB`, `G4INCLUDE` and some `EB…` variables set by the Ares module system; you can ignore them.
+
+  Either way, [step 4](#4-check-the-physics-datasets) checks that Geant4 actually finds every dataset.
+
+- **`G4_SOURCE_DIR`**, pointing to `~/geant4-ai/external/geant4`. You set it yourself when you cloned geant4-ai ([laptop](03-install-geant4.md#step-1-everyone-clone-geant4-ai-which-brings-the-geant4-source), [Ares](02-welcome-and-setup.md#get-the-repositories-ares-and-laptop)); Geant4 activation doesn't set it. The geant4-ai toolkit uses it to find the Geant4 source.
 
 Activation also adds Geant4's `bin` directory to `PATH`, so that `geant4-config` works. On Linux, the source-build activation script also extends `LD_LIBRARY_PATH` so programs can find the Geant4 libraries; on macOS it's `DYLD_LIBRARY_PATH`.
 
@@ -62,12 +67,24 @@ It should print `11.4.2`:
 geant4-config --version
 ```
 
+The geant4-ai toolkit also needs GDML support. This should print `yes`:
+
+```bash
+geant4-config --has-feature gdml
+```
+
 ## 4. Check the physics datasets
 
-Prints nothing if all datasets are in place:
+**Laptop (conda or source build).** This prints one line per dataset, and every line should say `INSTALLED`:
 
 ```bash
 geant4-config --check-datasets
+```
+
+**Ares.** There, `geant4-config --check-datasets` reports every dataset as `NOTFOUND`. That's a false alarm: it only looks in the directory Geant4 was compiled with, while Ares keeps the data in `$GEANT4_DATA_DIR`, where Geant4 finds it at run time. Check that directory instead; every line should say `OK`:
+
+```bash
+for p in $(geant4-config --check-datasets | awk '{print $3}'); do d=$(basename "$p"); [ -d "$GEANT4_DATA_DIR/$d" ] && echo "$d OK" || echo "$d MISSING"; done
 ```
 
 ## 5. Check the source code
@@ -85,19 +102,19 @@ This is the real end-to-end test. It compiles example B1 from the Geant4 sources
 **1. Configure the example:**
 
 ```bash
-cmake -S "$G4_SOURCE_DIR/examples/basic/B1" -B "$HOME/geant4/B1-build"
+cmake -S "$G4_SOURCE_DIR/examples/basic/B1" -B "$HOME/geant4-ai/geant4/B1-build"
 ```
 
 **2. Compile it:**
 
 ```bash
-cmake --build "$HOME/geant4/B1-build" -j "$(getconf _NPROCESSORS_ONLN)"
+cmake --build "$HOME/geant4-ai/geant4/B1-build" -j "$(getconf _NPROCESSORS_ONLN)"
 ```
 
 **3. Go to the build directory:**
 
 ```bash
-cd "$HOME/geant4/B1-build"
+cd "$HOME/geant4-ai/geant4/B1-build"
 ```
 
 **4. Run it on all your cores.** It should finish in seconds, ending with a summary of the dose deposited in the scoring volume:
@@ -108,8 +125,8 @@ G4FORCENUMBEROFTHREADS="$(getconf _NPROCESSORS_ONLN)" ./exampleB1 run1.mac
 
 > Watch `htop` (or Activity Monitor on macOS) while it runs. Geant4 uses one thread per core, and it's all CPU: the GPU stays idle.
 
-All six checks pass? You're ready. Go to the [first simulation](04-first-simulation.md).
+All six checks pass? You're ready. Go to the [first simulation](05-first-simulation.md).
 
 ---
 
-[← Install Geant4](02-install-geant4.md) · [Agenda](00-agenda.md) · [Next: first simulation →](04-first-simulation.md)
+[← Install Geant4](03-install-geant4.md) · [Agenda](00-agenda.md) · [Next: first simulation →](05-first-simulation.md)

@@ -1,6 +1,6 @@
 # Setting up the agent: the geant4-ai toolkit (14:45)
 
-[← First simulation](04-first-simulation.md) · [Agenda](00-agenda.md)
+[← First simulation](05-first-simulation.md) · [Agenda](00-agenda.md)
 
 The geant4-ai toolkit turns a general coding agent (opencode or Claude Code) into a Geant4 assistant. It provides a knowledge base, templates, helper scripts, an application skeleton, and slash commands such as `/g4-new`.
 
@@ -8,7 +8,7 @@ One script, `bootstrap.sh`, sets everything up. It creates a working directory, 
 
 ## 1. Before you start
 
-Geant4 must be activated in this terminal, and `G4_SOURCE_DIR` must point to the Geant4 source (see [Test the installation](03-test-geant4.md)).
+Geant4 must be activated in this terminal, and `G4_SOURCE_DIR` must point to the Geant4 source (see [Test the installation](04-test-geant4.md)).
 
 **1. Check the Geant4 version.** It should print `11.4.2`:
 
@@ -24,18 +24,12 @@ ls "$G4_SOURCE_DIR"
 
 Without `G4_SOURCE_DIR` the toolkit still works, but it can only rely on its knowledge base. With it set, the agent checks UI commands, GDML tags and physics-list contents against your exact Geant4.
 
-## 2. Get the toolkit
+## 2. Go to the toolkit
 
-**1. Clone the repository:**
-
-```bash
-git clone https://TODO/geant4-ai.git  # TODO: repository URL
-```
-
-**2. Enter the toolkit directory:**
+You cloned geant4-ai during [setup](02-welcome-and-setup.md#get-the-repositories-ares-and-laptop). Enter its toolkit directory:
 
 ```bash
-cd geant4-ai/toolkit
+cd "$HOME/geant4-ai/toolkit"
 ```
 
 ## 3. Create your workspace
@@ -78,8 +72,8 @@ The agent should run `geant4-config --version` instead of answering from memory.
 /g4-new "150 MeV protons into a 20 x 20 x 40 cm water phantom, score energy deposit in 1 mm slices along the beam, 10000 events, local run."
 ```
 
-Approve each stage as the agent goes: geometry, physics, beam, scoring, compile, run, plot. At the end, compare the range with the result you got by hand in the [first simulation](04-first-simulation.md).
+Approve each stage as the agent goes: geometry, physics, beam, scoring, compile, run, plot. At the end, compare the range with the result you got by hand in the [first simulation](05-first-simulation.md).
 
 ---
 
-[← First simulation](04-first-simulation.md) · [Agenda](00-agenda.md)
+[← First simulation](05-first-simulation.md) · [Agenda](00-agenda.md)
