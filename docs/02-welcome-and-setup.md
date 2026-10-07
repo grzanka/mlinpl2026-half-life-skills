@@ -23,6 +23,23 @@ ssh tutorial512@ares.cyfronet.pl
 
 Type the password when asked. Nothing appears on screen while you type it; that's normal. On the first login, `ssh` asks whether you trust the host's key: type `yes`.
 
+## Get a compute node (Ares only)
+
+<!-- TODO: as of 2026-10-07 tutorial accounts get "Invalid account or account/partition combination specified"
+     for any srun, and sacctmgr shows no association. Waiting for Cyfronet admins: confirm the -A account
+     (if any), whether the MAGNETIC reservation needs --reservation, and test this command.
+     Also check that compute nodes have outbound internet: git clone, the uv installer and uv python downloads run here. -->
+
+After logging in you're on the Ares **login node**, which everyone shares, so don't compile or run simulations there. Instead, ask Slurm for your own slice of a compute node: 6 CPU cores and 20 GB of RAM, for 4 hours, enough for the whole tutorial.
+
+```bash
+srun -p cpu -c 6 --mem=20G -t 04:00:00 --pty bash
+```
+
+When the prompt changes from `login01` to a compute node name such as `ac0123`, you're there. Do everything from here on there, including installing uv and cloning the repositories.
+
+> Nodes are reserved for this tutorial, so the job should start within seconds. If you close the terminal or lose the SSH connection, the job ends; log in again and rerun `srun`. Files in your home directory are kept.
+
 ## Install uv (Ares only)
 
 The geant4-ai helper scripts need Python ≥ 3.10, but Ares only has Python 3.6. [uv](https://docs.astral.sh/uv/) fixes that: it installs into your home directory (no admin rights needed) and downloads a recent Python on its own when the toolkit needs one. Laptop users installed it with the [prerequisites](01-prerequisites.md#install-the-tools).
@@ -64,22 +81,6 @@ echo 'export G4_SOURCE_DIR="$HOME/geant4-ai/external/geant4"' >> ~/.bashrc
 ```bash
 source ~/.bashrc
 ```
-
-## Get a compute node (Ares only)
-
-<!-- TODO: as of 2026-10-07 tutorial accounts get "Invalid account or account/partition combination specified"
-     for any srun, and sacctmgr shows no association. Waiting for Cyfronet admins: confirm the -A account
-     (if any), whether the MAGNETIC reservation needs --reservation, and test this command. -->
-
-So far you've been on the Ares **login node**, which everyone shares. It's fine for cloning and installing uv, but not for compiling or running simulations. For that, ask Slurm for your own slice of a compute node: 6 CPU cores and 20 GB of RAM, for 5 hours.
-
-```bash
-srun -p cpu -c 6 --mem=20G -t 05:00:00 --pty bash
-```
-
-When the prompt changes from `login01` to a compute node name such as `ac0123`, you're there. Everything from here on runs on that node.
-
-> Nodes are reserved for this tutorial, so the job should start within seconds. If you close the terminal or lose the SSH connection, the job ends; log in again and rerun `srun`. Files in your home directory are kept.
 
 ## Activate and check Geant4 (Ares and laptop)
 
