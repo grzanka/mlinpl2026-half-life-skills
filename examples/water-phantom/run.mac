@@ -1,0 +1,26 @@
+# Proton pencil beam into a water phantom.
+# Scores energy deposit in 1 mm slices along the beam axis.
+
+/run/initialize
+
+# --- Beam: 150 MeV protons, along +z, starting 1 cm in front of the water
+/gps/particle proton
+/gps/energy 150 MeV
+/gps/position 0 0 -1 cm
+/gps/direction 0 0 1
+
+# --- Scoring: one column of 400 slices covering the whole phantom
+# boxSize takes HALF-lengths: 20 x 20 x 40 cm in total
+/score/create/boxMesh depthDose
+/score/mesh/boxSize 10 10 20 cm
+/score/mesh/nBin 1 1 400
+/score/mesh/translate/xyz 0 0 20 cm
+/score/quantity/energyDeposit eDep MeV
+/score/close
+
+# --- Run
+/run/printProgress 1000
+/run/beamOn 10000
+
+# --- Save the result
+/score/dumpQuantityToFile depthDose eDep depth_dose.csv
