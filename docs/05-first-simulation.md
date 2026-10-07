@@ -23,33 +23,39 @@ You only ever edit `run.mac`. The C++ stays as it is.
 
 ## Build and run
 
-Run these from the repository root, with Geant4 activated ([how to activate it](02-welcome-and-setup.md)).
+Geant4 must be activated in this terminal ([how to activate it](04-test-geant4.md#1-activate-geant4)).
 
-**1. Configure the build:**
+**1. Go to this repository:**
+
+```bash
+cd "$HOME/mlinpl2026-half-life-skills"
+```
+
+**2. Configure the build:**
 
 ```bash
 cmake -S examples/water-phantom -B build/water-phantom
 ```
 
-**2. Compile:**
+**3. Compile:**
 
 ```bash
 cmake --build build/water-phantom
 ```
 
-**3. Go to the build directory:**
+**4. Go to the build directory:**
 
 ```bash
 cd build/water-phantom
 ```
 
-**4. Run 10 000 protons** (from a few seconds to a minute). It writes `depth_dose.csv`:
+**5. Run 10 000 protons** (from a few seconds to a minute). It writes `depth_dose.csv`:
 
 ```bash
 ./water_phantom ../../examples/water-phantom/run.mac
 ```
 
-**5. Get the result.** This prints the Bragg peak position and the range. If you have matplotlib installed, it also saves a plot, `depth_dose.png`:
+**6. Get the result.** This prints the Bragg peak position and the range. If you have matplotlib installed, it also saves a plot, `depth_dose.png`:
 
 ```bash
 python3 ../../examples/water-phantom/plot.py depth_dose.csv
