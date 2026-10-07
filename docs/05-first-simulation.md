@@ -63,6 +63,26 @@ uv run --with matplotlib python ../../examples/water-phantom/plot.py depth_dose.
 
 > Without uv, plain `python3 ../../examples/water-phantom/plot.py depth_dose.csv` also works: it prints the numbers and skips the plot if matplotlib is missing.
 
+### On Ares: copy the plot to your computer
+
+The plot is saved on Ares, and you can't open an image over SSH. Copy it to your own computer instead. Run the command in a **new terminal on your computer**, not in the one logged in to Ares, and replace `tutorial512` with your login. It asks for your Ares password.
+
+**With scp** (Linux, macOS, and Windows PowerShell). It copies the file into the current directory, which the trailing `.` stands for:
+
+```bash
+scp tutorial512@ares.cyfronet.pl:mlinpl2026-half-life-skills/build/water-phantom/depth_dose.png .
+```
+
+**With rsync** (Linux, macOS, WSL2). It's handy for copying a whole directory, for example all the plots from a run, and on repeated runs it only transfers new or changed files:
+
+```bash
+rsync -av --include='*/' --include='*.png' --include='*.svg' --exclude='*' tutorial512@ares.cyfronet.pl:mlinpl2026-half-life-skills/build/water-phantom/ ./ares-plots/
+```
+
+That copies every `.png` and `.svg` from the build directory into `ares-plots/` on your computer. Then open the files as usual.
+
+> Paths after the `:` are relative to your home directory on Ares. Compute nodes and the login node share the same home directory, so files you create in a compute-node session are there to copy.
+
 ## Check against the textbook
 
 The NIST [PSTAR](https://physics.nist.gov/PhysRefData/Star/Text/PSTAR.html) database gives the CSDA range of protons in water: the average distance a proton travels while slowing down. The R80 printed by `plot.py` should agree with it to within a few millimetres.
