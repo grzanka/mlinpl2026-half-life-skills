@@ -4,7 +4,7 @@ Files used by [Setting up opencode](../docs/06-opencode-setup.md):
 
 | File | What it is |
 |---|---|
-| [`plugins/plgrid.js`](plugins/plgrid.js) | opencode provider plugin for the PLGrid Forge models at `llmlab.plgrid.pl`. Works with opencode 1.x and 2.x. Copied unchanged. |
+| [`plugins/plgrid.js`](plugins/plgrid.js) | opencode provider plugin for the PLGrid Forge models at `llmlab.plgrid.pl`. Works with opencode 1.x and 2.x (the tutorial uses 2.x). Copied unchanged. |
 | [`opencode.json`](opencode.json) | Minimal global config: picks the default model and turns off session sharing. |
 
 The plugin comes from [groundnuty/plgrid-llmlab-opencode](https://github.com/groundnuty/plgrid-llmlab-opencode) (commit `a844c0f`, licence: "do what you like with it"). That repository also has a fuller `opencode.json` with extra agents, commands and an MCP server, plus measurements of every model; see it if you want more than this tutorial needs.

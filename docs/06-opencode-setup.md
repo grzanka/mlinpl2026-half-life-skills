@@ -6,17 +6,17 @@
 
 Do this both on a laptop and on Ares. On Ares, do it on your compute node ([Get a compute node](02-welcome-and-setup.md#get-a-compute-node-ares-only)).
 
-> opencode also comes as a desktop app and a web interface. We use **only the terminal version**; the PLGrid setup below was built and tested for it.
+> opencode also comes as a desktop app and a web interface. We use **only the terminal version**, release line **2.x**; the PLGrid setup below was built and tested for the terminal.
 
 ## 1. Install opencode
 
 **1. Run the installer.** It puts `opencode` into `~/.opencode/bin` and adds that directory to your `PATH` in `~/.bashrc` (or `~/.zshrc`). No admin rights needed:
 
 ```bash
-curl -fsSL https://opencode.ai/install | bash
+curl -fsSL https://opencode.ai/v2/install | bash
 ```
 
-> On macOS, use this installer too, not `brew install opencode`. Homebrew installs opencode 2.x, where the login command in step 3 is different (`opencode auth login plgrid`).
+> On macOS, `brew install opencode` also gives you 2.x. Avoid `npm install -g opencode-ai` and the older `https://opencode.ai/install` script: they install 1.x, where the commands below differ.
 
 **2. Load the new `PATH`** (`~/.zshrc` on macOS):
 
@@ -24,7 +24,7 @@ curl -fsSL https://opencode.ai/install | bash
 source ~/.bashrc
 ```
 
-**3. Check it.** It should print a version starting with `1.`:
+**3. Check it.** It should print a version starting with `opencode v2.`:
 
 ```bash
 opencode --version
@@ -60,16 +60,16 @@ cp "$HOME/mlinpl2026-half-life-skills/opencode/opencode.json" ~/.config/opencode
 
 **TODO:** how to get your API key for the tutorial.
 
-**1. Log in.** opencode asks for the key; paste it and press Enter. It's stored in `~/.local/share/opencode/auth.json`, never in this repository:
+**1. Log in.** opencode asks for the key; paste it and press Enter. It's stored in `~/.local/share/opencode/opencode.db`, never in this repository:
 
 ```bash
-opencode providers login -p plgrid
+opencode auth login plgrid
 ```
 
-**2. Check that the models are there.** This should list about 20 models, each starting with `plgrid/`:
+**2. Check that the models are there.** This should list about 20 models, each starting with `plgrid/`. The PLGrid models only appear after you've logged in. If it prints nothing, run it once more:
 
 ```bash
-opencode models plgrid
+opencode models | grep '^plgrid/'
 ```
 
 **3. Ask the model something.** This sends one prompt and prints the answer, without starting the TUI:
