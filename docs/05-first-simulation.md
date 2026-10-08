@@ -55,7 +55,7 @@ cd build/water-phantom
 ./water_phantom ../../examples/water-phantom/run.mac
 ```
 
-**6. Get the result.** This prints the Bragg peak position and the range, and saves a plot, `depth_dose.png`. `uv run` gives the script a recent Python with matplotlib, so it works the same on Ares (where the system Python is 3.6) and on your laptop:
+**6. Get the result.** This prints the Bragg peak position and the range, and saves a plot, `depth_dose.png`. `uv run` gives the script a recent Python with matplotlib, so it works the same on Ares and on your laptop, without loading any Python module:
 
 ```bash
 uv run --with matplotlib python ../../examples/water-phantom/plot.py depth_dose.csv

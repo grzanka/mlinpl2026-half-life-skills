@@ -50,7 +50,7 @@ Slurm first prints `queued and waiting for resources`, then `has been allocated 
 
 ## Install uv (Ares only)
 
-The geant4-ai helper scripts need Python ≥ 3.10, but Ares only has Python 3.6. [uv](https://docs.astral.sh/uv/) fixes that: it installs into your home directory (no admin rights needed) and downloads a recent Python on its own when the toolkit needs one. Laptop users installed it with the [prerequisites](01-prerequisites.md#install-the-tools).
+The geant4-ai helper scripts need Python ≥ 3.10 and a few Python packages. The default `python3` on Ares is 3.6; newer versions exist as modules, but we use [uv](https://docs.astral.sh/uv/) instead, the same tool as on laptops: it installs into your home directory (no admin rights needed) and downloads a recent Python on its own when the toolkit needs one. Laptop users installed it with the [prerequisites](01-prerequisites.md#install-the-tools).
 
 **1. Install uv into `~/.local/bin`:**
 
