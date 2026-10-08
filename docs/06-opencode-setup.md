@@ -46,8 +46,6 @@ cd "$TUTORIAL_DIR"
 curl -fsSL https://opencode.ai/v2/install | bash
 ```
 
-> If it stops with `curl: (22) The requested URL returned error: 500` and `Failed to fetch version information`, opencode's server didn't answer the "what's the latest version" request. Wait a minute and run it again.
->
 > On macOS, `brew install opencode` works too. Don't use `npm install -g opencode-ai` or `https://opencode.ai/install` without `/v2`: those install 1.x.
 
 **2. Put opencode on your `PATH` in this terminal.** The installer's change to `~/.bashrc` only applies to new terminals. [`tutorial-env.sh`](../tutorial-env.sh) adds `~/.opencode/bin` whenever it exists, so rerun it now:
