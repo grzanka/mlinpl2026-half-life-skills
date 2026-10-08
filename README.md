@@ -12,6 +12,7 @@
 7. [Installing opencode](docs/06-opencode-setup.md)
 8. [Setting up the agent: the geant4-ai toolkit](docs/07-agent-setup.md)
 9. [Worked example: does more shielding mean less dose?](docs/08-shielding-demo.md)
+10. [Mission menu](docs/09-mission-menu.md): [fallout shelter](docs/10-mission-fallout-shelter.md), [snowman](docs/11-mission-snowman.md), [cockroach at the LHC](docs/12-mission-cockroach.md)
 
 ## Tools
 

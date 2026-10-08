@@ -1,6 +1,6 @@
 # Worked example: does more shielding mean less dose?
 
-[← Setting up the agent](07-agent-setup.md) · [Agenda](00-agenda.md)
+[← Setting up the agent](07-agent-setup.md) · [Agenda](00-agenda.md) · [Next: mission menu →](09-mission-menu.md)
 
 We build one simulation together, step by step: I type on the projector, you type the same on your machine. You need the agent running in your workspace ([Setting up the agent](07-agent-setup.md)).
 
@@ -132,4 +132,4 @@ Ask the agent to rerun with a different beam energy, one change at a time. Our r
 
 ---
 
-[← Setting up the agent](07-agent-setup.md) · [Agenda](00-agenda.md)
+[← Setting up the agent](07-agent-setup.md) · [Agenda](00-agenda.md) · [Next: mission menu →](09-mission-menu.md)
