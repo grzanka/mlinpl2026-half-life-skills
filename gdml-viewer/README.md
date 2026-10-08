@@ -31,6 +31,16 @@ GDML angles (`G4GDMLReadStructure.cc`), while the second solid of a boolean uses
 (`G4GDMLReadSolids.cc`). A 100 mm bar placed with `rotation z="30" unit="deg"` therefore has its
 +x tip at (43.3, −25, 0) mm, as in Geant4.
 
+## Checks
+
+After drawing, the viewer runs two checks that never raise a false alarm:
+
+- **Sticking out:** a volume whose extent reaches beyond its mother's extent (for example a world that is too small).
+- **Overlaps between neighbours:** computed exactly for unrotated boxes and for full spheres (`orb`, or `sphere` without cuts). The overlap depth is reported in mm.
+
+Pairs of other shapes whose bounding boxes touch are counted and reported as not checked; use Geant4's
+own overlap check for those (`/geometry/test/run`, or the geant4-ai toolkit's `check_geometry.py`).
+
 Air, vacuum and the world volume are drawn as outlines only. Each material gets one colour, and
 the table lists every placed volume with its extent in x, y and z.
 
