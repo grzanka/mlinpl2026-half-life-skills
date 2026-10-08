@@ -31,7 +31,7 @@ Type the password when asked. Nothing appears on screen while you type it; that'
 After logging in you're on the Ares **login node**, which everyone shares, so don't compile or run simulations there. Instead, ask Slurm for your own slice of a compute node: 6 CPU cores for 4 hours, enough for the whole tutorial.
 
 ```bash
-srun --partition=cpu --nodes=1 --ntasks=1 --cpus-per-task=6 --time=0-4 --pty bash -l
+srun --partition=cpu --nodes=1 --ntasks=1 --cpus-per-task=6 --time=4:00:00 --pty bash -l
 ```
 
 What the options mean:
@@ -41,7 +41,7 @@ What the options mean:
 | `--partition=cpu` | The group of CPU nodes the tutorial accounts may use |
 | `--nodes=1 --ntasks=1` | One process on one node |
 | `--cpus-per-task=6` | 6 CPU cores for you; Geant4 will use all of them |
-| `--time=0-4` | 0 days and 4 hours; after that the session ends |
+| `--time=4:00:00` | 4 hours (hours:minutes:seconds); after that the session ends. Careful: `--time=4` would mean 4 minutes |
 | `--pty bash -l` | An interactive shell on the node, set up like a fresh login |
 
 Slurm first prints `queued and waiting for resources`, then `has been allocated resources`. When the prompt changes from `login01` to a compute node name such as `ac0766`, you're there. Do everything from here on there, including installing uv and cloning the repositories.
