@@ -9,5 +9,5 @@
 4. [Installing Geant4: get it and compile](docs/03-install-geant4.md)
 5. [Installing Geant4: test the installation](docs/04-test-geant4.md)
 6. [First simulation: proton beam in water](docs/05-first-simulation.md)
-7. [Setting up opencode with the PLGrid models](docs/06-opencode-setup.md)
+7. [Installing opencode](docs/06-opencode-setup.md)
 8. [Setting up the agent: the geant4-ai toolkit](docs/07-agent-setup.md)

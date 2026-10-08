@@ -124,7 +124,7 @@ Follow [Test the installation](04-test-geant4.md). On Ares, step 6 there (buildi
 
 ## The agent
 
-We start the agent after the first simulation, which we do by hand. Setup instructions: [Setting up opencode](06-opencode-setup.md), then [Setting up the agent](07-agent-setup.md).
+We start the agent after the first simulation, which we do by hand. Setup instructions: [Installing opencode](06-opencode-setup.md), then [Setting up the agent](07-agent-setup.md).
 
 ---
 

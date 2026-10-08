@@ -47,7 +47,7 @@ Supported: **Linux** and **macOS** (Intel or Apple Silicon). On **Windows**, ins
 | C++17 compiler | Every Geant4 simulation is a C++ program you compile | `c++ --version` |
 | CMake ≥ 3.16 and make | Build system for Geant4 and the simulations | `cmake --version`, `make --version` |
 | xerces-c and expat (headers) | XML parsing; xerces-c is needed for **GDML** geometry files, which the agent uses. Only needed if you [compile Geant4 from source](03-install-geant4.md#option-b-compile-from-source) | — |
-| A coding agent | [opencode](https://opencode.ai), the terminal version, installed in [Setting up opencode](06-opencode-setup.md). Claude Code also works | `opencode --version` or `claude --version` |
+| A coding agent | [opencode](https://opencode.ai), the terminal version, installed in [Installing opencode](06-opencode-setup.md). Claude Code also works | `opencode --version` or `claude --version` |
 
 Then there's **Geant4 itself**, which has its own page: [Installing Geant4](03-install-geant4.md) (about 2 GB to download). If you install Geant4 with conda (Option A), the conda environment brings its own compiler, CMake and make. You still need git, curl, Python and uv.
 

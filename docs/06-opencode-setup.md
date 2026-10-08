@@ -1,10 +1,10 @@
-# Setting up opencode with the PLGrid models
+# Installing opencode
 
 [← First simulation](05-first-simulation.md) · [Agenda](00-agenda.md) · [Next: set up the agent →](07-agent-setup.md)
 
-[opencode](https://opencode.ai) is the coding agent we use this afternoon. It runs in the terminal (a TUI, text user interface), so it works the same on your laptop and on Ares over SSH. We connect it to the open-weight models that ACK Cyfronet hosts for PLGrid (PLGrid Forge, at [llmlab.plgrid.pl](https://llmlab.plgrid.pl)), so your prompts and code stay on Polish academic infrastructure.
+[opencode](https://opencode.ai) is the coding agent we use this afternoon. It runs in the terminal (a TUI, text user interface), so it works the same on your laptop and on Ares over SSH. On the next page we connect it to the open-weight models that ACK Cyfronet hosts for PLGrid (PLGrid Forge, at [llmlab.plgrid.pl](https://llmlab.plgrid.pl)), so your prompts and code stay on Polish academic infrastructure.
 
-Do this both on a laptop and on Ares. On Ares, do it on your compute node: not sure you're on one? See [Before you start](04-test-geant4.md#0-before-you-start).
+Install it both on a laptop and on Ares. On Ares, do it on your compute node: not sure you're on one? See [Before you start](04-test-geant4.md#0-before-you-start).
 
 ## Which opencode: terminal or graphical, 1.x or 2.x
 
@@ -28,17 +28,11 @@ We use **only the terminal app**. It's the only one that works over SSH on Ares,
 
 The PLGrid plugin works with both, but the commands on this page are for 2.x. If you already have opencode installed, check `opencode --version`. With 1.x, either install 2.x as below, or use the 1.x login command from the table. Things to know about 2.x:
 
-- **It needs its own login.** If you used 1.x before, 2.x copies your PLGrid key the first time it runs. Otherwise, log in as in [step 3](#3-log-in-with-your-api-key); until then the PLGrid models don't appear.
+- **It needs its own login.** If you used 1.x before, 2.x copies your PLGrid key the first time it runs. Otherwise, log in as in [Setting up the agent](07-agent-setup.md#4-connect-opencode-to-the-plgrid-models); until then the PLGrid models don't appear.
 - **It runs no language servers (LSP)**, so it doesn't get type-checker feedback after each edit the way 1.x can. That doesn't matter for this tutorial.
-- **Our `opencode.json` is in the 1.x format**, which 2.x converts when it starts. If you edit it, keep that format: 1.x won't start with a config written in the 2.x format.
+- **Our `opencode.json` settings are in the 1.x format**, which 2.x converts when it starts. If you edit it, keep that format: 1.x won't start with a config written in the 2.x format.
 
 ## 1. Install opencode
-
-**0. Go back to the tutorial directory.** After the first simulation you're probably still in `build/water-phantom`. opencode works on the files of the directory you start it in, so start from a known place:
-
-```bash
-cd "$TUTORIAL_DIR"
-```
 
 **1. Run the official installer.** It puts `opencode` into `~/.opencode/bin` and adds that directory to your `PATH` in `~/.bashrc` (or `~/.zshrc`); no admin rights needed:
 
@@ -60,87 +54,9 @@ source "$TUTORIAL_DIR/mlinpl2026-half-life-skills/tutorial-env.sh"
 opencode --version
 ```
 
-## 2. Install the PLGrid provider
+## Next: connect it to the PLGrid models
 
-opencode doesn't know about PLGrid Forge out of the box. A small plugin adds it, with all its models. The plugin and a minimal config are in this repository, in [`opencode/`](../opencode/); they come from [groundnuty/plgrid-llmlab-opencode](https://github.com/groundnuty/plgrid-llmlab-opencode).
-
-We install them **for your user**, in `~/.config/opencode/`, so they apply in every directory, including the workspace the geant4-ai toolkit creates later.
-
-**1. Create opencode's config directory:**
-
-```bash
-mkdir -p ~/.config/opencode/plugins
-```
-
-**2. Copy the plugin:**
-
-```bash
-cp "$TUTORIAL_DIR/mlinpl2026-half-life-skills/opencode/plugins/plgrid.js" ~/.config/opencode/plugins/
-```
-
-**3. Copy the config.** It sets the default model. If you already use opencode and have a `~/.config/opencode/opencode.json`, don't overwrite it: add the `model` and `small_model` lines from our file to yours instead.
-
-```bash
-cp "$TUTORIAL_DIR/mlinpl2026-half-life-skills/opencode/opencode.json" ~/.config/opencode/opencode.json
-```
-
-## 3. Log in with your API key
-
-<!-- TODO: how participants get their LLM Lab API key (tutorial grant? keys handed out with the Ares logins?). -->
-
-**TODO:** how to get your API key for the tutorial.
-
-**1. Log in.** opencode asks for the key; paste it and press Enter. It's stored in `~/.local/share/opencode/opencode.db`, never in this repository:
-
-```bash
-opencode auth login plgrid
-```
-
-**2. Check that the models are there.** This should list about 20 models, each starting with `plgrid/`. The PLGrid models only appear after you've logged in. If it prints nothing, run it once more:
-
-```bash
-opencode models | grep '^plgrid/'
-```
-
-**3. Ask the model something.** This sends one prompt and prints the answer, without starting the TUI:
-
-```bash
-opencode run "Reply with one word: ready"
-```
-
-If it answers, opencode is ready. If you get *"not available for grant"*, your key can't use that model; see [Which model](#which-model).
-
-## 4. Try the TUI
-
-Start it in the tutorial directory, where you are now. opencode can see the files here, so it can answer questions about both repositories:
-
-```bash
-opencode
-```
-
-Type a question and press Enter. A few keys worth knowing:
-
-| Key or command | What it does |
-|---|---|
-| `/models` | Switch model |
-| **Tab** | Switch agent (`build` can edit files and run commands, `plan` only reads) |
-| `/exit` or **Ctrl+C** | Quit |
-
-opencode asks before it runs a command or edits a file. Read what it wants to do before you approve it: that's the habit this whole afternoon is about.
-
-## Which model
-
-The default is `deepseek-ai/DeepSeek-V4.1-Flash`: the fastest of the reliable models. Others, all switchable with `/models`:
-
-| Model | Notes |
-|---|---|
-| `deepseek-ai/DeepSeek-V4.1-Flash` | Default. Fast and reliable with tools, but only some grants can use it |
-| `Qwen/Qwen3.6-27B` | Every grant can use it. Reliable with tools, a bit slower |
-| `google/gemma-4-31B` | Every grant can use it; used for short background tasks such as session titles |
-
-If DeepSeek answers *"not available for grant"*, make Qwen your default: in `~/.config/opencode/opencode.json`, change the `model` line to `"model": "plgrid/Qwen/Qwen3.6-27B"`.
-
-Several other models in the list can't use tools at all, so they can't run commands or edit files. Measured comparisons of all of them are in [plgrid-llmlab-opencode](https://github.com/groundnuty/plgrid-llmlab-opencode/blob/main/research/models.md).
+opencode doesn't know the PLGrid models yet. We connect it to them in the directory where you'll use it, the geant4-ai workspace, which you create on the next page: [Setting up the agent](07-agent-setup.md).
 
 ---
 
