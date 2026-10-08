@@ -34,6 +34,12 @@ The PLGrid plugin works with both, but the commands on this page are for 2.x. If
 
 ## 1. Install opencode
 
+**0. Go back to the tutorial directory.** After the first simulation you're probably still in `build/water-phantom`. opencode works on the files of the directory you start it in, so start from a known place:
+
+```bash
+cd "$TUTORIAL_DIR"
+```
+
 **1. Run the installer.** It puts `opencode` into `~/.opencode/bin`; no admin rights needed. `--no-modify-path` stops it from editing your shell configuration (`~/.bashrc` or `~/.zshrc`):
 
 ```bash
@@ -108,7 +114,7 @@ If it answers, opencode is ready. If you get *"not available for grant"*, your k
 
 ## 4. Try the TUI
 
-Start it in any directory:
+Start it in the tutorial directory, where you are now. opencode can see the files here, so it can answer questions about both repositories:
 
 ```bash
 opencode
