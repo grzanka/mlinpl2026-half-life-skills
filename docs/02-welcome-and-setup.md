@@ -70,7 +70,7 @@ uv --version
 
 **1. Choose where the tutorial files go.** We keep that place in a variable, `TUTORIAL_DIR`, which later commands use. It's set only in this terminal; nothing is written to your shell configuration.
 
-On Ares, use `$SCRATCH`, the large scratch filesystem. Your home directory there is small, and simulations and builds can fill it:
+On Ares, use `$SCRATCH`, the scratch filesystem. It's much faster than your home directory, which matters when you compile code and when simulations write their output. It's also much larger, so builds and results won't fill it up:
 
 ```bash
 export TUTORIAL_DIR="$SCRATCH"

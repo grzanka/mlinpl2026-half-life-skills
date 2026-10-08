@@ -36,7 +36,7 @@ cd "$TUTORIAL_DIR/geant4-ai/toolkit"
 
 ## 3. Create your workspace
 
-The workspace is where the agent writes each simulation: its code, build and output. Output can reach gigabytes, so on Ares it goes to `$SCRATCH`, the large scratch filesystem, rather than your small home directory. On a cluster, `bootstrap.sh` refuses a workspace inside `$HOME`.
+The workspace is where the agent writes each simulation: its code, build and output. Output can reach gigabytes, so on Ares it goes to `$SCRATCH`, the scratch filesystem: much faster than your home directory, and much larger. On a cluster, `bootstrap.sh` refuses a workspace inside `$HOME`.
 
 **1. Run the bootstrap script.** It asks which tool you use; answer opencode (or Claude Code, if you use that). The workspace goes into `$TUTORIAL_DIR`, which is `$SCRATCH` on Ares:
 
