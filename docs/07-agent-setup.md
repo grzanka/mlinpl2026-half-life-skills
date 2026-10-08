@@ -66,23 +66,33 @@ opencode doesn't know about PLGrid Forge out of the box. A small plugin adds it,
 bash "$TUTORIAL_DIR/mlinpl2026-half-life-skills/opencode/add-plgrid.sh" "$TUTORIAL_DIR/g4work"
 ```
 
-**2. Log in with your API key.** Run this inside the workspace (you're there after step 3), because that's where opencode now knows PLGrid. opencode asks for the key; paste it and press Enter. It's stored in `~/.local/share/opencode/opencode.db`, never in this repository:
+**2. Show your API key.** Each tutorial account has its own key, in a file in your Ares home directory named after your login. The file has no line break at the end, so `echo` adds one; otherwise the key runs straight into your next prompt:
 
-<!-- TODO: how participants get their LLM Lab API key (tutorial grant? keys handed out with the Ares logins?). -->
+```bash
+cat "$HOME/token-mlinpl2026-opencode-$USER.txt"; echo
+```
 
-**TODO:** how to get your API key for the tutorial.
+It prints one line starting with `plg-`. Select and copy it. Treat it like a password: don't paste it anywhere except the next step.
+
+> **On a laptop**, read the key from Ares. Run this on your laptop, with your tutorial login in place of `tutorial512`:
+>
+> ```bash
+> ssh tutorial512@ares.cyfronet.pl 'cat token-mlinpl2026-opencode-tutorial512.txt; echo'
+> ```
+
+**3. Log in.** Run this inside the workspace (you're there since you [created it](#3-create-your-workspace)), because that's where opencode now knows PLGrid. opencode asks for the key; paste it and press Enter. It's stored in `~/.local/share/opencode/opencode.db`, never in this repository:
 
 ```bash
 opencode auth login plgrid
 ```
 
-**3. Check that the models are there.** This should list about 20 models, each starting with `plgrid/`. If it prints nothing, run it once more:
+**4. Check that the models are there.** This should list about 20 models, each starting with `plgrid/`. If it prints nothing, run it once more:
 
 ```bash
 opencode models | grep '^plgrid/'
 ```
 
-**4. Ask the model something.** This sends one prompt and prints the answer, without starting the full interface:
+**5. Ask the model something.** This sends one prompt and prints the answer, without starting the full interface:
 
 ```bash
 opencode run "Reply with one word: ready"
