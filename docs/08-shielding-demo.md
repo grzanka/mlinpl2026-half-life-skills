@@ -50,6 +50,8 @@ In the opencode window, in your workspace, type:
 /g4-new "Proton shielding test. World: air. Two aluminium (G4_Al) shields side by side, each 5 cm wide in x and 10 cm tall in y: the left one (x from -5 to 0 cm) is 1 mm thick, the right one (x from 0 to 5 cm) is 10 mm thick; both have their upstream face at z = 0. Behind each shield, a 1 mm thick water (G4_WATER) detector with the same width and height, upstream face at z = 2 cm. Beam: 52 MeV protons, a broad parallel beam along +z, uniform over a 10 x 10 cm square centred on the z axis, starting at z = -1 cm, so it covers both shields equally. Physics list QBBC. Scoring: two separate scoring meshes of dose in Gy, each 3 x 3 cm in x-y, centred on one detector (x = -2.5 cm and x = +2.5 cm), covering the detector's 1 mm thickness, one bin each. 200000 events, local run. Output: both doses and their ratio (10 mm / 1 mm) in a CSV file, and a bar chart of the two doses as PNG."
 ```
 
+Tired of approving every command? Quit and restart with `opencode --auto --continue`: same session, fewer prompts ([what `--auto` does](07-agent-setup.md#fewer-prompts---auto)).
+
 The more the prompt pins down, the fewer questions the agent has to ask. Anything it still asks about, answer from [the setup table](#the-setup).
 
 ## Step 2: approve stage by stage

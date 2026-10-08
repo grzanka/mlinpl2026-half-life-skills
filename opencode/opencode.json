@@ -2,5 +2,14 @@
   "$schema": "https://opencode.ai/config.json",
   "model": "plgrid/deepseek-ai/DeepSeek-V4.1-Flash",
   "small_model": "plgrid/google/gemma-4-31B",
-  "share": "disabled"
+  "share": "disabled",
+  "permission": {
+    "bash": {
+      "rm -rf *": "deny",
+      "rm -fr *": "deny",
+      "sudo *": "deny",
+      "git push *": "deny",
+      "git reset --hard*": "deny"
+    }
+  }
 }

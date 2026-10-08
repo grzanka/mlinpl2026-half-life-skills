@@ -132,6 +132,35 @@ $ cd …/g4work && bash scripts/check_geant4.sh 2>&1 | head -50
 
 Read what it wants to do before you approve it: that's the habit this whole afternoon is about.
 
+### Fewer prompts: `--auto`
+
+Approving every `ls` gets tedious. Start opencode with `--auto` and it approves permission requests by itself:
+
+```bash
+opencode --auto
+```
+
+What `--auto` does and doesn't do:
+
+- **It approves everything that isn't explicitly denied:** commands, file edits, web fetches. You no longer see the commands before they run, so watch the output as it scrolls by.
+- **A few commands stay forbidden.** `add-plgrid.sh` put these deny rules into the workspace's `opencode.json`, and `--auto` never overrides a deny: `rm -rf`, `rm -fr`, `sudo`, `git push` and `git reset --hard`. The agent gets a refusal and has to find another way.
+- **It doesn't skip the toolkit's stages.** `/g4-new` still stops after each stage and waits for you to say "go on": those are questions in the conversation, not permission prompts.
+
+A good rhythm: do the [warm-up](#6-warm-up-ask-the-toolkit-a-question) without `--auto`, so you see what kind of commands the agent runs, then switch it on.
+
+### Coming back to a session: `/resume`
+
+Everything you do in opencode is a **session**: your messages, the agent's answers and its commands. Sessions are saved, so quitting opencode loses nothing.
+
+- **Inside opencode**, type `/resume` (or `/sessions`) to see your earlier sessions in this workspace, and pick one to carry on with.
+- **From the shell**, `--continue` (`-c`) reopens the last session directly. To switch on `--auto` for a session you started without it, quit and reopen it like this:
+
+```bash
+opencode --auto --continue
+```
+
+That's also how you get back after losing the connection to Ares: log in, get a compute node, `cd "$TUTORIAL_DIR/g4work"`, and continue where you left off.
+
 As a first test, ask:
 
 > What version of Geant4 is installed here? Check it with a command; don't guess.
