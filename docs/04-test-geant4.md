@@ -55,13 +55,13 @@ Geant4 isn't a single program. It's a set of libraries plus about 2 GB of physic
 module load geant4/11.4.2 cmake/3.31.8-gcccore-14.3.0 python/3.13.5-gcccore-14.3.0
 ```
 
-**Conda (Option A):**
+**Laptop, installed with conda ([Option A](03-install-geant4.md#option-a-conda-miniforge)):**
 
 ```bash
 source "$HOME/miniforge3/bin/activate" g4
 ```
 
-**Compiled from source (Option B):**
+**Laptop, compiled from source ([Option B](03-install-geant4.md#option-b-compile-from-source)):**
 
 ```bash
 source "$HOME/geant4-ai/geant4/install/bin/geant4.sh"
