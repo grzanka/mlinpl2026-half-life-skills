@@ -8,10 +8,10 @@ Run these checks in a **new terminal**, so that the changes made during installa
 
 Geant4 isn't a single program. It's a set of libraries plus about 2 GB of physics data. Before using it, you **activate** it in your terminal, which sets a few environment variables. Repeat the activation in every new terminal. Use the command that matches your installation.
 
-**Ares:** load Geant4 and CMake (Ares has no `cmake` by default). This CMake is built with the same GCC 14.3 as Geant4:
+**Ares:** load Geant4, CMake (Ares has no `cmake` by default) and a recent Python (the default `python3` is 3.6). All three are built with the same GCC 14.3 toolchain:
 
 ```bash
-module load geant4/11.4.2 cmake/3.31.8-gcccore-14.3.0
+module load geant4/11.4.2 cmake/3.31.8-gcccore-14.3.0 python/3.13.5-gcccore-14.3.0
 ```
 
 **Conda (Option A):**
@@ -26,7 +26,7 @@ source "$HOME/miniforge3/bin/activate" g4
 source "$HOME/geant4-ai/geant4/install/bin/geant4.sh"
 ```
 
-> To activate automatically, add that line to `~/.bashrc` (Linux) or `~/.zshrc` (macOS).
+> Like `tutorial-env.sh`, activation lasts only until you close the terminal. Repeat it in every new terminal, and on Ares after every `srun`.
 
 ## 2. Look at what activation set
 
@@ -55,7 +55,7 @@ You should see the following:
 
   Either way, [step 4](#4-check-the-physics-datasets) checks that Geant4 actually finds every dataset.
 
-- **`G4_SOURCE_DIR`**, pointing to `$TUTORIAL_DIR/geant4-ai/external/geant4`. You set it yourself when you cloned geant4-ai ([laptop](03-install-geant4.md#step-1-everyone-clone-geant4-ai-which-brings-the-geant4-source), [Ares](02-welcome-and-setup.md#get-the-repositories-ares-and-laptop)); Geant4 activation doesn't set it. The geant4-ai toolkit uses it to find the Geant4 source.
+- **`G4_SOURCE_DIR`**, pointing to `$TUTORIAL_DIR/geant4-ai/external/geant4`. It comes from `tutorial-env.sh` ([In every new terminal](02-welcome-and-setup.md#in-every-new-terminal)), not from Geant4 activation. The geant4-ai toolkit uses it to find the Geant4 source.
 
 Activation also adds Geant4's `bin` directory to `PATH`, so that `geant4-config` works. On Linux, the source-build activation script also extends `LD_LIBRARY_PATH` so programs can find the Geant4 libraries; on macOS it's `DYLD_LIBRARY_PATH`.
 

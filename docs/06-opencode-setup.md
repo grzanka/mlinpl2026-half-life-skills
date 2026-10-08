@@ -34,18 +34,18 @@ The PLGrid plugin works with both, but the commands on this page are for 2.x. If
 
 ## 1. Install opencode
 
-**1. Run the installer.** It puts `opencode` into `~/.opencode/bin` and adds that directory to your `PATH` in `~/.bashrc` (or `~/.zshrc`). No admin rights needed:
+**1. Run the installer.** It puts `opencode` into `~/.opencode/bin`; no admin rights needed. `--no-modify-path` stops it from editing your shell configuration (`~/.bashrc` or `~/.zshrc`):
 
 ```bash
-curl -fsSL https://opencode.ai/v2/install | bash
+curl -fsSL https://opencode.ai/v2/install | bash -s -- --no-modify-path
 ```
 
 > On macOS, `brew install opencode` works too. Don't use `npm install -g opencode-ai` or `https://opencode.ai/install` without `/v2`: those install 1.x.
 
-**2. Load the new `PATH`** (`~/.zshrc` on macOS):
+**2. Put opencode on your `PATH` for this terminal.** [`tutorial-env.sh`](../tutorial-env.sh) does that whenever `~/.opencode/bin` exists, so rerun it now:
 
 ```bash
-source ~/.bashrc
+source "$TUTORIAL_DIR/mlinpl2026-half-life-skills/tutorial-env.sh"
 ```
 
 **3. Check it.** It should print a version starting with `opencode v2.`:
@@ -53,6 +53,8 @@ source ~/.bashrc
 ```bash
 opencode --version
 ```
+
+> Want to keep opencode after the tutorial? Add `export PATH="$HOME/.opencode/bin:$PATH"` to your `~/.bashrc` (or `~/.zshrc`) yourself, or reinstall without `--no-modify-path`.
 
 ## 2. Install the PLGrid provider
 

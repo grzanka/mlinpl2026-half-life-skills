@@ -50,12 +50,12 @@ Slurm first prints `queued and waiting for resources`, then `has been allocated 
 
 ## Install uv (Ares only)
 
-The geant4-ai helper scripts need Python ≥ 3.10 and a few Python packages. The default `python3` on Ares is 3.6; newer versions exist as modules, but we use [uv](https://docs.astral.sh/uv/) instead, the same tool as on laptops: it installs into your home directory (no admin rights needed) and downloads a recent Python on its own when the toolkit needs one. Laptop users installed it with the [prerequisites](01-prerequisites.md#install-the-tools).
+The geant4-ai helper scripts need Python ≥ 3.10 and a few Python packages (matplotlib, uproot, numpy…). Python itself comes from an Ares module, which you load when you [activate Geant4](04-test-geant4.md#1-activate-geant4). The packages come through [uv](https://docs.astral.sh/uv/), the same tool laptop users installed with the [prerequisites](01-prerequisites.md#install-the-tools). It installs into your home directory, with no admin rights needed.
 
-**1. Install uv into `~/.local/bin`:**
+**1. Install uv into `~/.local/bin`.** That directory is already on your `PATH` on Ares, so `--no-modify-path` tells the installer to leave your shell configuration alone:
 
 ```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
+curl -LsSf https://astral.sh/uv/install.sh | sh -s -- --no-modify-path
 ```
 
 **2. Check it.** It should print a version:
@@ -66,46 +66,56 @@ uv --version
 
 ## Get the repositories (Ares and laptop)
 
-> Laptop users who followed [Installing Geant4, Step 1](03-install-geant4.md#step-1-everyone-clone-geant4-ai-which-brings-the-geant4-source) already did steps 1, 2 and 5; do only steps 3 and 4.
+> Laptop users who followed [Installing Geant4, Step 1](03-install-geant4.md#step-1-everyone-clone-geant4-ai-which-brings-the-geant4-source) already cloned geant4-ai; skip step 3.
 
-**1. Choose where the tutorial files go.** We keep that place in a variable, `TUTORIAL_DIR`, which all later commands use. Use `~/.zshrc` instead of `~/.bashrc` on macOS.
+**1. Choose where the tutorial files go.** We keep that place in a variable, `TUTORIAL_DIR`, which later commands use. It's set only in this terminal; nothing is written to your shell configuration.
 
 On Ares, use `$SCRATCH`, the large scratch filesystem. Your home directory there is small, and simulations and builds can fill it:
 
 ```bash
-echo 'export TUTORIAL_DIR="$SCRATCH"' >> ~/.bashrc
+export TUTORIAL_DIR="$SCRATCH"
 ```
 
 On a laptop, use your home directory:
 
 ```bash
-echo 'export TUTORIAL_DIR="$HOME"' >> ~/.bashrc
+export TUTORIAL_DIR="$HOME"
 ```
 
 > On Ares, files in `$SCRATCH` are deleted automatically after 30 days. That's plenty for the tutorial; copy anything you want to keep (see [copying files from Ares](05-first-simulation.md#on-ares-copy-the-plot-to-your-computer)).
 
-**2. Tell your shell where the Geant4 source will be:**
-
-```bash
-echo 'export G4_SOURCE_DIR="$TUTORIAL_DIR/geant4-ai/external/geant4"' >> ~/.bashrc
-```
-
-**3. Load both settings into the current terminal**, and check where `TUTORIAL_DIR` points:
-
-```bash
-source ~/.bashrc && echo "$TUTORIAL_DIR"
-```
-
-**4. Clone this repository:**
+**2. Clone this repository:**
 
 ```bash
 git clone https://github.com/grzanka/mlinpl2026-half-life-skills.git "$TUTORIAL_DIR/mlinpl2026-half-life-skills"
 ```
 
-**5. Clone geant4-ai, with the Geant4 11.4.2 source as a submodule:**
+**3. Clone geant4-ai, with the Geant4 11.4.2 source as a submodule:**
 
 ```bash
 git clone --recurse-submodules=external/geant4 --shallow-submodules https://github.com/CTPPS/geant4-ai.git "$TUTORIAL_DIR/geant4-ai"
+```
+
+**4. Set the tutorial's environment.** [`tutorial-env.sh`](../tutorial-env.sh) sets `TUTORIAL_DIR` and `G4_SOURCE_DIR` (where the Geant4 source is, for the geant4-ai toolkit) and prints them:
+
+```bash
+source "$TUTORIAL_DIR/mlinpl2026-half-life-skills/tutorial-env.sh"
+```
+
+### In every new terminal
+
+These settings last only until you close the terminal, so nothing stays behind after the tutorial. In every new terminal, and on Ares after every `srun`, run the line for your machine, then [activate Geant4](04-test-geant4.md#1-activate-geant4).
+
+On Ares:
+
+```bash
+source "$SCRATCH/mlinpl2026-half-life-skills/tutorial-env.sh"
+```
+
+On a laptop:
+
+```bash
+source "$HOME/mlinpl2026-half-life-skills/tutorial-env.sh"
 ```
 
 ## Activate and check Geant4 (Ares and laptop)
