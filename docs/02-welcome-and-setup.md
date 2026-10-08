@@ -25,9 +25,6 @@ Type the password when asked. Nothing appears on screen while you type it; that'
 
 ## Get a compute node (Ares only)
 
-<!-- TODO: srun below verified on 2026-10-08 with a tutorial account (job allocated on ac0766).
-     Still to check: outbound internet from compute nodes (git clone, uv installer, uv python downloads, llmlab.plgrid.pl). -->
-
 After logging in you're on the Ares **login node**, which everyone shares, so don't compile or run simulations there. Instead, ask Slurm for your own slice of a compute node: 6 CPU cores for 4 hours, enough for the whole tutorial.
 
 ```bash
