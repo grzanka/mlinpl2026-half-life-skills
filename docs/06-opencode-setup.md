@@ -40,17 +40,17 @@ The PLGrid plugin works with both, but the commands on this page are for 2.x. If
 cd "$TUTORIAL_DIR"
 ```
 
-**1. Run the installer.** It puts `opencode` into `~/.opencode/bin`; no admin rights needed. `--version 2.0.25` installs the version this tutorial was tested with, so everyone has the same one. `--no-modify-path` stops it from editing your shell configuration (`~/.bashrc` or `~/.zshrc`):
+**1. Run the official installer.** It puts `opencode` into `~/.opencode/bin` and adds that directory to your `PATH` in `~/.bashrc` (or `~/.zshrc`); no admin rights needed:
 
 ```bash
-curl -fsSL https://opencode.ai/v2/install | bash -s -- --version 2.0.25 --no-modify-path
+curl -fsSL https://opencode.ai/v2/install | bash
 ```
 
-> Without `--version`, the installer first asks opencode's server for the latest version, and that request sometimes fails with `curl: (22) The requested URL returned error: 500` and `Failed to fetch version information`. With `--version` it skips that step and downloads straight from npm.
-
+> If it stops with `curl: (22) The requested URL returned error: 500` and `Failed to fetch version information`, opencode's server didn't answer the "what's the latest version" request. Wait a minute and run it again.
+>
 > On macOS, `brew install opencode` works too. Don't use `npm install -g opencode-ai` or `https://opencode.ai/install` without `/v2`: those install 1.x.
 
-**2. Put opencode on your `PATH` for this terminal.** [`tutorial-env.sh`](../tutorial-env.sh) does that whenever `~/.opencode/bin` exists, so rerun it now:
+**2. Put opencode on your `PATH` in this terminal.** The installer's change to `~/.bashrc` only applies to new terminals. [`tutorial-env.sh`](../tutorial-env.sh) adds `~/.opencode/bin` whenever it exists, so rerun it now:
 
 ```bash
 source "$TUTORIAL_DIR/mlinpl2026-half-life-skills/tutorial-env.sh"
@@ -61,8 +61,6 @@ source "$TUTORIAL_DIR/mlinpl2026-half-life-skills/tutorial-env.sh"
 ```bash
 opencode --version
 ```
-
-> Want to keep opencode after the tutorial? Add `export PATH="$HOME/.opencode/bin:$PATH"` to your `~/.bashrc` (or `~/.zshrc`) yourself, or reinstall without `--no-modify-path`.
 
 ## 2. Install the PLGrid provider
 
