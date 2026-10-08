@@ -61,11 +61,29 @@ The agent stops after each stage and shows you what it made. Don't just press En
 | Stage | Check |
 |---|---|
 | 1. Plan | Both thicknesses, both detector positions, 52 MeV, 200 000 events, QBBC |
-| 2. Geometry | Shields **start** at z = 0 (not centred on it). Detectors start at z = 2 cm. No overlaps reported |
+| 2. Geometry | Shields **start** at z = 0 (not centred on it). Detectors start at z = 2 cm. No overlaps reported. [Look at it](#look-at-the-geometry) |
 | 3. Physics | `QBBC` |
 | 4. Beam and scoring | Beam is a **plane** source covering both halves, not a pencil beam. Each mesh sits inside a **water detector**, not inside a shield. The quantity is dose |
 | 5. Compile and run | It compiles; the run finishes. Approve the build and run commands one at a time |
 | 6. Results | Two dose values and their ratio, and the bar chart |
+
+### Look at the geometry
+
+Before approving stage 2, look at what the agent built. Open the **[GDML Viewer](https://grzanka.github.io/mlinpl2026-half-life-skills/)** in a browser on your laptop (it runs entirely in the browser; nothing is uploaded). Then print the geometry file in your workspace:
+
+```bash
+cat runs/*/geometry.gdml
+```
+
+(With several runs, name the one you mean, e.g. `runs/proton-shield-al/geometry.gdml`.) Copy the whole output and paste it into the viewer. It starts in a top view, with the beam going left to right. The table under the picture lists every volume's extent in mm. For our setup:
+
+| Volume | x (mm) | z (mm) |
+|---|---|---|
+| 1 mm shield | −50 … 0 | 0 … 1 |
+| 10 mm shield | 0 … 50 | 0 … 10 |
+| Detectors | −50 … 0 and 0 … 50 | 20 … 21 |
+
+If the shields come out at −0.5 … 0.5 and −5 … 5, they're centred on z = 0: tell the agent before you approve. The viewer's **Example: shielding** button loads a correct version to compare with.
 
 ## Step 3: look at the result
 

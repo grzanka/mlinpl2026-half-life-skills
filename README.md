@@ -12,3 +12,7 @@
 7. [Installing opencode](docs/06-opencode-setup.md)
 8. [Setting up the agent: the geant4-ai toolkit](docs/07-agent-setup.md)
 9. [Worked example: does more shielding mean less dose?](docs/08-shielding-demo.md)
+
+## Tools
+
+- [GDML Viewer](https://grzanka.github.io/mlinpl2026-half-life-skills/): paste a Geant4 GDML file and see the geometry in 3D, with each volume's position in mm. Source in [`gdml-viewer/`](gdml-viewer/).
