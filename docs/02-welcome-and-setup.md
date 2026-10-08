@@ -25,20 +25,28 @@ Type the password when asked. Nothing appears on screen while you type it; that'
 
 ## Get a compute node (Ares only)
 
-<!-- TODO: as of 2026-10-07 tutorial accounts get "Invalid account or account/partition combination specified"
-     for any srun, and sacctmgr shows no association. Waiting for Cyfronet admins: confirm the -A account
-     (if any), whether the MAGNETIC reservation needs --reservation, and test this command.
-     Also check that compute nodes have outbound internet: git clone, the uv installer and uv python downloads run here. -->
+<!-- TODO: srun below verified on 2026-10-08 with a tutorial account (job allocated on ac0766).
+     Still to check: outbound internet from compute nodes (git clone, uv installer, uv python downloads, llmlab.plgrid.pl). -->
 
-After logging in you're on the Ares **login node**, which everyone shares, so don't compile or run simulations there. Instead, ask Slurm for your own slice of a compute node: 6 CPU cores and 20 GB of RAM, for 4 hours, enough for the whole tutorial.
+After logging in you're on the Ares **login node**, which everyone shares, so don't compile or run simulations there. Instead, ask Slurm for your own slice of a compute node: 6 CPU cores for 4 hours, enough for the whole tutorial.
 
 ```bash
-srun -p cpu -c 6 --mem=20G -t 04:00:00 --pty bash
+srun --partition=cpu --nodes=1 --ntasks=1 --cpus-per-task=6 --time=0-4 --pty bash -l
 ```
 
-When the prompt changes from `login01` to a compute node name such as `ac0123`, you're there. Do everything from here on there, including installing uv and cloning the repositories.
+What the options mean:
 
-> Nodes are reserved for this tutorial, so the job should start within seconds. If you close the terminal or lose the SSH connection, the job ends; log in again and rerun `srun`. Files in your home directory are kept.
+| Option | Meaning |
+|---|---|
+| `--partition=cpu` | The group of CPU nodes the tutorial accounts may use |
+| `--nodes=1 --ntasks=1` | One process on one node |
+| `--cpus-per-task=6` | 6 CPU cores for you; Geant4 will use all of them |
+| `--time=0-4` | 0 days and 4 hours; after that the session ends |
+| `--pty bash -l` | An interactive shell on the node, set up like a fresh login |
+
+Slurm first prints `queued and waiting for resources`, then `has been allocated resources`. When the prompt changes from `login01` to a compute node name such as `ac0766`, you're there. Do everything from here on there, including installing uv and cloning the repositories.
+
+> If you close the terminal or lose the SSH connection, the session ends; log in again and rerun `srun`. Files in your home directory are kept. To leave the compute node yourself, type `logout`: you're back on `login01`, and the 6 cores are free for someone else.
 
 ## Install uv (Ares only)
 
