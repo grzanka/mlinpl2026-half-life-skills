@@ -116,7 +116,21 @@ Type a question and press Enter. A few keys worth knowing:
 | **Shift+Tab** | Switch agent (`build` can edit files and run commands, `plan` only reads) |
 | `/exit` or **Ctrl+C** | Quit |
 
-opencode asks before it runs a command or edits a file. Read what it wants to do before you approve it: that's the habit this whole afternoon is about.
+opencode asks before it runs a command or edits a file. You'll see these prompts a lot:
+
+```text
+△ Permission required
+$ cd …/g4work && bash scripts/check_geant4.sh 2>&1 | head -50
+  Allow once    Always allow    Reject
+```
+
+| Choice | When to use it |
+|---|---|
+| **Allow once** | The default. You've read the command and it does what you asked |
+| **Always allow** | Commands that only read and that you'll see again and again, such as `ls`, `cat` or the toolkit's check scripts. opencode stops asking about that command |
+| **Reject** | Anything you don't understand, or that touches files outside the workspace. Then tell the agent why |
+
+Read what it wants to do before you approve it: that's the habit this whole afternoon is about.
 
 As a first test, ask:
 
@@ -124,7 +138,21 @@ As a first test, ask:
 
 The agent should run `geant4-config --version` instead of answering from memory. That's the habit we'll build on all afternoon.
 
-## 6. Start a simulation
+## 6. Warm-up: ask the toolkit a question
+
+Before running a whole simulation, ask the toolkit something with `/g4`, the command for a single question or task. It routes your question to the right specialist and checks the answer against the toolkit's knowledge base and your Geant4 installation:
+
+```text
+/g4 Can we simulate beer in Geant4? Which materials would we need, and are they in Geant4's NIST material database?
+```
+
+Watch how it works rather than just the answer: which commands it wants to run (approve them one by one), which files it reads, and whether it checks things or guesses. A good answer finds water, ethanol (`G4_ETHYL_ALCOHOL`) and carbon dioxide (`G4_CARBON_DIOXIDE`) in the database, and explains that beer itself isn't there but can be defined as a mixture by mass fractions.
+
+> The first time the agent runs a toolkit helper script, uv sets up the workspace's Python environment (`.venv`) and downloads about 200 MB of packages. That takes a minute; later runs reuse it.
+>
+> To list materials, particles, physics lists or scoring quantities directly, use `/g4-list` with a category and an optional filter, for example `/g4-list materials ethyl`. It doesn't take free-form questions; those go to `/g4`.
+
+## 7. Start a simulation
 
 `/g4-new` starts the pipeline. It needs to know what to simulate, so follow it with a plain-language description of the study. For our worked example:
 
