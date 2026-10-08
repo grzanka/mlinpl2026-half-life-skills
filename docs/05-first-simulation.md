@@ -23,7 +23,9 @@ You only ever edit `run.mac`. The C++ stays as it is.
 
 ## Build and run
 
-Geant4 must be activated in this terminal ([how to activate it](04-test-geant4.md#1-activate-geant4)).
+> **On Ares:** work on your compute node, not the login node. Not sure where you are, or opened a new terminal? See [Before you start](04-test-geant4.md#0-before-you-start).
+
+Geant4 must be activated in this terminal ([how to activate it](04-test-geant4.md#1-activate-geant4)), and `tutorial-env.sh` sourced ([how](04-test-geant4.md#set-the-tutorials-environment-ares-and-laptop)).
 
 **1. Go to this repository:**
 

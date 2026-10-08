@@ -8,6 +8,8 @@ One script, `bootstrap.sh`, sets everything up. It creates a working directory, 
 
 ## 1. Before you start
 
+> **On Ares:** work on your compute node, not the login node. Not sure where you are, or opened a new terminal? See [Before you start](04-test-geant4.md#0-before-you-start).
+
 Geant4 must be activated in this terminal, and `G4_SOURCE_DIR` must point to the Geant4 source (see [Test the installation](04-test-geant4.md)).
 
 **1. Check the Geant4 version.** It should print `11.4.2`:

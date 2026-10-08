@@ -4,7 +4,7 @@
 
 We use **Geant4 11.4.2**, released on 17 June 2026. It's the version installed on Ares, so laptops and the cluster run the same code. Everything on this page (the conda package, the source and the physics datasets) is pinned to this version.
 
-> **On Ares? Skip this page.** Geant4 is already installed there. Go to [Test the installation](04-test-geant4.md).
+> **On Ares? Skip this page.** Geant4 is already installed there. Instead, follow the Ares steps of [Welcome & setup](02-welcome-and-setup.md): log in, [get a compute node](02-welcome-and-setup.md#get-a-compute-node-ares-only), install uv and [get the repositories](02-welcome-and-setup.md#get-the-repositories-ares-and-laptop). Then go to [Test the installation](04-test-geant4.md).
 
 Before you start, install the tools listed in [Prerequisites](01-prerequisites.md#case-2-working-on-your-laptop): at least git, curl, Python, uv and a terminal.
 

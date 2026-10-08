@@ -4,7 +4,7 @@
 
 [opencode](https://opencode.ai) is the coding agent we use this afternoon. It runs in the terminal (a TUI, text user interface), so it works the same on your laptop and on Ares over SSH. We connect it to the open-weight models that ACK Cyfronet hosts for PLGrid (PLGrid Forge, at [llmlab.plgrid.pl](https://llmlab.plgrid.pl)), so your prompts and code stay on Polish academic infrastructure.
 
-Do this both on a laptop and on Ares. On Ares, do it on your compute node ([Get a compute node](02-welcome-and-setup.md#get-a-compute-node-ares-only)).
+Do this both on a laptop and on Ares. On Ares, do it on your compute node: not sure you're on one? See [Before you start](04-test-geant4.md#0-before-you-start).
 
 ## Which opencode: terminal or graphical, 1.x or 2.x
 
