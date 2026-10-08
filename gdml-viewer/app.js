@@ -86,12 +86,13 @@ function show(text) {
   };
 
   const MAX_PLACEMENTS = 20000;
-  function place(volumeName, matrix, path, depth) {
+  function place(volumeName, matrix, path, depth, parent) {
     if (placed.length >= MAX_PLACEMENTS) { note(`only the first ${MAX_PLACEMENTS} placements are drawn`); return; }
     if (depth > 30) { note("placements nested deeper than 30 levels are not drawn"); return; }
     const v = model.volumes[volumeName];
     if (!v) { note(`unknown volume "${volumeName}"`); return; }
     const isWorld = depth === 0;
+    let self = parent; // what this volume's daughters are placed in
 
     if (!v.assembly && v.solid) {
       const s = model.solids[v.solid];
@@ -128,7 +129,9 @@ function show(text) {
         // exact extent of the solid itself (not of a boolean's dashed outline)
         const box = new THREE.Box3().setFromObject(mesh ?? edges, true);
         const entry = { path, volume: v.name, material: v.material, solidType: s.type, world: isWorld,
-          wire, holder, mesh, box, group, pos: new THREE.Vector3().setFromMatrixPosition(matrix) };
+          wire, holder, mesh, box, group, pos: new THREE.Vector3().setFromMatrixPosition(matrix),
+          solid: s, parent, rotated: isRotated(matrix) };
+        self = entry;
         if (mesh) mesh.userData.entry = entry;
         group.objects.push(holder);
         placed.push(entry);
@@ -137,19 +140,97 @@ function show(text) {
     for (const d of v.daughters) {
       // G4GDMLReadStructure::PhysvolRead: G4Transform3D(GetRotationMatrix(rotation).inverse(), position)
       const local = new THREE.Matrix4().makeTranslation(...d.pos).multiply(rotationMatrix(d.rot).invert());
-      place(d.volume, matrix.clone().multiply(local), d.name, depth + 1);
+      place(d.volume, matrix.clone().multiply(local), d.name, depth + 1, self);
     }
   }
-  place(model.world, new THREE.Matrix4(), model.world, 0);
+  place(model.world, new THREE.Matrix4(), model.world, 0, null);
 
+  messages.innerHTML = renderChecks(geometryChecks());
   if (notes.length) {
-    messages.innerHTML = `<div class="msg warn"><strong>Shown with caveats:</strong><ul>${notes.map((n) => `<li>${escape(n)}</li>`).join("")}</ul></div>`;
+    messages.innerHTML += `<div class="msg warn"><strong>Shown with caveats:</strong><ul>${notes.map((n) => `<li>${escape(n)}</li>`).join("")}</ul></div>`;
   }
   $("empty").style.display = placed.length ? "none" : "grid";
   renderLegend();
   renderTable();
   setView(currentView);
   window.gdmlViewer = { model, placed }; // for debugging in the browser console
+}
+
+// ---------- geometry checks ----------
+// Two checks that never raise a false alarm:
+//  1. a volume whose extent reaches outside its mother's extent certainly sticks out of it;
+//  2. overlaps between siblings, computed exactly for unrotated boxes and full spheres.
+// Other shapes are left to Geant4's own overlap check (/geometry/test/run, check_geometry.py).
+const TOL = 1e-3; // mm
+
+function isRotated(m) {
+  const e = m.elements;
+  return [e[1], e[2], e[4], e[6], e[8], e[9]].some((x) => Math.abs(x) > 1e-9) ||
+    [e[0], e[5], e[10]].some((x) => Math.abs(x - 1) > 1e-9);
+}
+
+function simpleShape(e) {
+  const s = e.solid;
+  if (s.type === "box" && !e.rotated) return { kind: "box", box: e.box };
+  const fullSphere = s.type === "sphere" && s.rmin === 0 && s.deltaphi >= 2 * Math.PI - 1e-9 &&
+    s.starttheta === 0 && s.deltatheta >= Math.PI - 1e-9;
+  if (s.type === "orb" || fullSphere) return { kind: "ball", c: e.pos, r: s.type === "orb" ? s.r : s.rmax };
+  return null;
+}
+
+// > 0: overlap depth in mm; <= 0: no overlap; null: can't tell for these shapes
+function overlapDepth(a, b) {
+  const A = simpleShape(a), B = simpleShape(b);
+  if (!A || !B) return null;
+  if (A.kind === "box" && B.kind === "box") {
+    return Math.min(
+      Math.min(A.box.max.x, B.box.max.x) - Math.max(A.box.min.x, B.box.min.x),
+      Math.min(A.box.max.y, B.box.max.y) - Math.max(A.box.min.y, B.box.min.y),
+      Math.min(A.box.max.z, B.box.max.z) - Math.max(A.box.min.z, B.box.min.z));
+  }
+  if (A.kind === "ball" && B.kind === "ball") return A.r + B.r - A.c.distanceTo(B.c);
+  const [box, ball] = A.kind === "box" ? [A, B] : [B, A];
+  return ball.r - box.box.distanceToPoint(ball.c);
+}
+
+function geometryChecks() {
+  const problems = [];
+  let checked = 0, unchecked = 0;
+  const inside = (a, b) => a.min.x >= b.min.x - TOL && a.min.y >= b.min.y - TOL && a.min.z >= b.min.z - TOL &&
+    a.max.x <= b.max.x + TOL && a.max.y <= b.max.y + TOL && a.max.z <= b.max.z + TOL;
+  const siblings = new Map();
+  for (const e of placed) {
+    if (!e.parent) continue;
+    if (!inside(e.box, e.parent.box)) problems.push(`"${e.path}" sticks out of its mother volume "${e.parent.path}"`);
+    if (!siblings.has(e.parent)) siblings.set(e.parent, []);
+    siblings.get(e.parent).push(e);
+  }
+  for (const group of siblings.values()) {
+    if (group.length > 500) { unchecked += group.length; continue; }
+    for (let i = 0; i < group.length; i++) {
+      for (let j = i + 1; j < group.length; j++) {
+        const a = group[i], b = group[j];
+        if (!a.box.intersectsBox(b.box)) { checked++; continue; } // can't overlap
+        const d = overlapDepth(a, b);
+        if (d === null) { unchecked++; continue; }
+        checked++;
+        if (d > TOL) problems.push(`"${a.path}" and "${b.path}" overlap by ${d.toFixed(2)} mm`);
+      }
+    }
+  }
+  return { problems, checked, unchecked };
+}
+
+function renderChecks({ problems, checked, unchecked }) {
+  const rest = unchecked
+    ? ` ${unchecked} pair${unchecked === 1 ? "" : "s"} of other shapes could not be checked here; rely on Geant4's overlap check for those.`
+    : "";
+  if (problems.length) {
+    const shown = problems.slice(0, 20);
+    const more = problems.length > shown.length ? `<li>… and ${problems.length - shown.length} more</li>` : "";
+    return `<div class="msg error"><strong>Geometry problems:</strong><ul>${shown.map((p) => `<li>${escape(p)}</li>`).join("")}${more}</ul>${rest}</div>`;
+  }
+  return `<div class="msg ok"><strong>Checks passed:</strong> no volume sticks out of its mother, and no overlaps among ${checked} pair${checked === 1 ? "" : "s"} of neighbouring volumes.${rest}</div>`;
 }
 
 // ---------- legend ----------

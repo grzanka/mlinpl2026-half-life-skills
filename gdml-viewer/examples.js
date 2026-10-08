@@ -67,7 +67,7 @@ export const SHAPES = `<?xml version="1.0" encoding="UTF-8"?>
   </define>
   <materials/>
   <solids>
-    <box name="world_s" x="600" y="300" z="300" lunit="mm"/>
+    <box name="world_s" x="600" y="300" z="400" lunit="mm"/>
     <tube name="tube_s" rmin="20" rmax="40" z="80" deltaphi="270" aunit="deg" lunit="mm"/>
     <cone name="cone_s" rmin1="0" rmax1="45" rmin2="0" rmax2="10" z="90" deltaphi="360" aunit="deg" lunit="mm"/>
     <sphere name="shell_s" rmin="30" rmax="45" deltaphi="360" deltatheta="90" aunit="deg" lunit="mm"/>
