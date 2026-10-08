@@ -62,10 +62,14 @@ ls "$HOME/geant4-ai/external/geant4"
 
 > Already cloned geant4-ai without the submodule? Run `git -C "$HOME/geant4-ai" submodule update --init --depth 1 external/geant4`.
 
-**3. Tell your shell where the source is.** Use `~/.zshrc` instead of `~/.bashrc` on macOS:
+**3. Tell your shell where the tutorial files and the Geant4 source are.** `TUTORIAL_DIR` is the directory all later pages use; on a laptop it's your home directory. Use `~/.zshrc` instead of `~/.bashrc` on macOS:
 
 ```bash
-echo 'export G4_SOURCE_DIR="$HOME/geant4-ai/external/geant4"' >> ~/.bashrc
+echo 'export TUTORIAL_DIR="$HOME"' >> ~/.bashrc
+```
+
+```bash
+echo 'export G4_SOURCE_DIR="$TUTORIAL_DIR/geant4-ai/external/geant4"' >> ~/.bashrc
 ```
 
 ## Step 2: install Geant4, picking one option

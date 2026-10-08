@@ -69,13 +69,13 @@ mkdir -p ~/.config/opencode/plugins
 **2. Copy the plugin:**
 
 ```bash
-cp "$HOME/mlinpl2026-half-life-skills/opencode/plugins/plgrid.js" ~/.config/opencode/plugins/
+cp "$TUTORIAL_DIR/mlinpl2026-half-life-skills/opencode/plugins/plgrid.js" ~/.config/opencode/plugins/
 ```
 
 **3. Copy the config.** It sets the default model. If you already use opencode and have a `~/.config/opencode/opencode.json`, don't overwrite it: add the `model` and `small_model` lines from our file to yours instead.
 
 ```bash
-cp "$HOME/mlinpl2026-half-life-skills/opencode/opencode.json" ~/.config/opencode/opencode.json
+cp "$TUTORIAL_DIR/mlinpl2026-half-life-skills/opencode/opencode.json" ~/.config/opencode/opencode.json
 ```
 
 ## 3. Log in with your API key

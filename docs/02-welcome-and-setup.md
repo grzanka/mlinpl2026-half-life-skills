@@ -46,7 +46,7 @@ What the options mean:
 
 Slurm first prints `queued and waiting for resources`, then `has been allocated resources`. When the prompt changes from `login01` to a compute node name such as `ac0766`, you're there. Do everything from here on there, including installing uv and cloning the repositories.
 
-> If you close the terminal or lose the SSH connection, the session ends; log in again and rerun `srun`. Files in your home directory are kept. To leave the compute node yourself, type `logout`: you're back on `login01`, and the 6 cores are free for someone else.
+> If you close the terminal or lose the SSH connection, the session ends; log in again and rerun `srun`. Your files (in your home directory and in `$SCRATCH`) are kept. To leave the compute node yourself, type `logout`: you're back on `login01`, and the 6 cores are free for someone else.
 
 ## Install uv (Ares only)
 
@@ -66,28 +66,46 @@ uv --version
 
 ## Get the repositories (Ares and laptop)
 
-**1. Clone this repository:**
+> Laptop users who followed [Installing Geant4, Step 1](03-install-geant4.md#step-1-everyone-clone-geant4-ai-which-brings-the-geant4-source) already did steps 1, 2 and 5; do only steps 3 and 4.
+
+**1. Choose where the tutorial files go.** We keep that place in a variable, `TUTORIAL_DIR`, which all later commands use. Use `~/.zshrc` instead of `~/.bashrc` on macOS.
+
+On Ares, use `$SCRATCH`, the large scratch filesystem. Your home directory there is small, and simulations and builds can fill it:
 
 ```bash
-git clone https://github.com/grzanka/mlinpl2026-half-life-skills.git "$HOME/mlinpl2026-half-life-skills"
+echo 'export TUTORIAL_DIR="$SCRATCH"' >> ~/.bashrc
 ```
 
-**2. Clone geant4-ai, with the Geant4 11.4.2 source as a submodule.** Laptop users who followed [Installing Geant4, Step 1](03-install-geant4.md#step-1-everyone-clone-geant4-ai-which-brings-the-geant4-source) already have it and can skip steps 2–3:
+On a laptop, use your home directory:
 
 ```bash
-git clone --recurse-submodules=external/geant4 --shallow-submodules https://github.com/CTPPS/geant4-ai.git "$HOME/geant4-ai"
+echo 'export TUTORIAL_DIR="$HOME"' >> ~/.bashrc
 ```
 
-**3. Tell your shell where the Geant4 source is.** Use `~/.zshrc` instead of `~/.bashrc` on macOS:
+> On Ares, files in `$SCRATCH` are deleted automatically after 30 days. That's plenty for the tutorial; copy anything you want to keep (see [copying files from Ares](05-first-simulation.md#on-ares-copy-the-plot-to-your-computer)).
+
+**2. Tell your shell where the Geant4 source will be:**
 
 ```bash
-echo 'export G4_SOURCE_DIR="$HOME/geant4-ai/external/geant4"' >> ~/.bashrc
+echo 'export G4_SOURCE_DIR="$TUTORIAL_DIR/geant4-ai/external/geant4"' >> ~/.bashrc
 ```
 
-**4. Load it into the current terminal:**
+**3. Load both settings into the current terminal**, and check where `TUTORIAL_DIR` points:
 
 ```bash
-source ~/.bashrc
+source ~/.bashrc && echo "$TUTORIAL_DIR"
+```
+
+**4. Clone this repository:**
+
+```bash
+git clone https://github.com/grzanka/mlinpl2026-half-life-skills.git "$TUTORIAL_DIR/mlinpl2026-half-life-skills"
+```
+
+**5. Clone geant4-ai, with the Geant4 11.4.2 source as a submodule:**
+
+```bash
+git clone --recurse-submodules=external/geant4 --shallow-submodules https://github.com/CTPPS/geant4-ai.git "$TUTORIAL_DIR/geant4-ai"
 ```
 
 ## Activate and check Geant4 (Ares and laptop)

@@ -55,7 +55,7 @@ You should see the following:
 
   Either way, [step 4](#4-check-the-physics-datasets) checks that Geant4 actually finds every dataset.
 
-- **`G4_SOURCE_DIR`**, pointing to `~/geant4-ai/external/geant4`. You set it yourself when you cloned geant4-ai ([laptop](03-install-geant4.md#step-1-everyone-clone-geant4-ai-which-brings-the-geant4-source), [Ares](02-welcome-and-setup.md#get-the-repositories-ares-and-laptop)); Geant4 activation doesn't set it. The geant4-ai toolkit uses it to find the Geant4 source.
+- **`G4_SOURCE_DIR`**, pointing to `$TUTORIAL_DIR/geant4-ai/external/geant4`. You set it yourself when you cloned geant4-ai ([laptop](03-install-geant4.md#step-1-everyone-clone-geant4-ai-which-brings-the-geant4-source), [Ares](02-welcome-and-setup.md#get-the-repositories-ares-and-laptop)); Geant4 activation doesn't set it. The geant4-ai toolkit uses it to find the Geant4 source.
 
 Activation also adds Geant4's `bin` directory to `PATH`, so that `geant4-config` works. On Linux, the source-build activation script also extends `LD_LIBRARY_PATH` so programs can find the Geant4 libraries; on macOS it's `DYLD_LIBRARY_PATH`.
 
@@ -102,19 +102,19 @@ This is the real end-to-end test. It compiles example B1 from the Geant4 sources
 **1. Configure the example:**
 
 ```bash
-cmake -S "$G4_SOURCE_DIR/examples/basic/B1" -B "$HOME/geant4-ai/geant4/B1-build"
+cmake -S "$G4_SOURCE_DIR/examples/basic/B1" -B "$TUTORIAL_DIR/geant4-ai/geant4/B1-build"
 ```
 
 **2. Compile it:**
 
 ```bash
-cmake --build "$HOME/geant4-ai/geant4/B1-build" -j "$(getconf _NPROCESSORS_ONLN)"
+cmake --build "$TUTORIAL_DIR/geant4-ai/geant4/B1-build" -j "$(getconf _NPROCESSORS_ONLN)"
 ```
 
 **3. Go to the build directory:**
 
 ```bash
-cd "$HOME/geant4-ai/geant4/B1-build"
+cd "$TUTORIAL_DIR/geant4-ai/geant4/B1-build"
 ```
 
 **4. Run it on all your cores.** It should finish in seconds, ending with a summary of the dose deposited in the scoring volume:

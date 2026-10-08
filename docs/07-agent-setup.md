@@ -29,37 +29,23 @@ Without `G4_SOURCE_DIR` the toolkit still works, but it can only rely on its kno
 You cloned geant4-ai during [setup](02-welcome-and-setup.md#get-the-repositories-ares-and-laptop). Enter its toolkit directory:
 
 ```bash
-cd "$HOME/geant4-ai/toolkit"
+cd "$TUTORIAL_DIR/geant4-ai/toolkit"
 ```
 
 ## 3. Create your workspace
 
 The workspace is where the agent writes each simulation: its code, build and output. Output can reach gigabytes, so on Ares it goes to `$SCRATCH`, the large scratch filesystem, rather than your small home directory. On a cluster, `bootstrap.sh` refuses a workspace inside `$HOME`.
 
-**1. Run the bootstrap script.** It asks which tool you use; answer opencode (or Claude Code, if you use that).
-
-On a laptop:
+**1. Run the bootstrap script.** It asks which tool you use; answer opencode (or Claude Code, if you use that). The workspace goes into `$TUTORIAL_DIR`, which is `$SCRATCH` on Ares:
 
 ```bash
-bash scripts/bootstrap.sh "$HOME/g4work"
+bash scripts/bootstrap.sh "$TUTORIAL_DIR/g4work"
 ```
 
-On Ares:
+**2. Enter the workspace:**
 
 ```bash
-bash scripts/bootstrap.sh "$SCRATCH/g4work"
-```
-
-**2. Enter the workspace.** On a laptop:
-
-```bash
-cd "$HOME/g4work"
-```
-
-On Ares:
-
-```bash
-cd "$SCRATCH/g4work"
+cd "$TUTORIAL_DIR/g4work"
 ```
 
 > `$SCRATCH` on Ares is cleaned automatically: files older than 30 days are removed. Copy anything you want to keep (see [copying files from Ares](05-first-simulation.md#on-ares-copy-the-plot-to-your-computer)).
