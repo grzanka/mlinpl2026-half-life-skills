@@ -75,7 +75,7 @@ Before approving stage 2, look at what the agent built. Open the **[GDML Viewer]
 cat runs/*/geometry.gdml
 ```
 
-(With several runs, name the one you mean, e.g. `runs/proton-shield-al/geometry.gdml`.) Copy the whole output and paste it into the viewer. It starts in a top view, with the beam going left to right. The table under the picture lists every volume's extent in mm. For our setup:
+(With several runs, name the one you mean, e.g. `runs/proton-shield-al/geometry.gdml`.) Copy the whole output and paste it into the viewer. It opens in a 3D view; press **Top** to see it from above, with the beam going left to right. The table under the picture lists every volume's extent in mm. For our setup:
 
 | Volume | x (mm) | z (mm) |
 |---|---|---|

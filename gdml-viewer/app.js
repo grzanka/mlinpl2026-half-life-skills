@@ -235,7 +235,7 @@ const VIEWS = {
   beam: { dir: [0, 0, 1], up: [0, 1, 0], axes: "looking along the beam (+z), y ↑ up" },
   iso: { dir: [-0.6, -0.5, 0.62], up: [0, 1, 0], axes: "3D view, y ↑ up" },
 };
-let currentView = "top";
+let currentView = "iso";
 let fitBox = new THREE.Box3(new THREE.Vector3(-1, -1, -1), new THREE.Vector3(1, 1, 1));
 
 function sceneBox() {
