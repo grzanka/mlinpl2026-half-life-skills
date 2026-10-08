@@ -50,7 +50,7 @@ bash scripts/bootstrap.sh "$TUTORIAL_DIR/g4work"
 cd "$TUTORIAL_DIR/g4work"
 ```
 
-> `$SCRATCH` on Ares is cleaned automatically: files older than 30 days are removed. Copy anything you want to keep (see [copying files from Ares](05-first-simulation.md#on-ares-copy-the-plot-to-your-computer)).
+> Tutorial accounts on Ares stay active for only a few days after the tutorial, and then everything in them is gone. Copy anything you want to keep to your own computer before then (see [copying files from Ares](05-first-simulation.md#on-ares-copy-the-plot-to-your-computer)).
 
 ## 4. Start the agent
 

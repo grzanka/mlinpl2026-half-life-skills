@@ -82,7 +82,7 @@ On a laptop, use your home directory:
 export TUTORIAL_DIR="$HOME"
 ```
 
-> On Ares, files in `$SCRATCH` are deleted automatically after 30 days. That's plenty for the tutorial; copy anything you want to keep (see [copying files from Ares](05-first-simulation.md#on-ares-copy-the-plot-to-your-computer)).
+> Tutorial accounts on Ares stay active for only a few days after the tutorial, and then everything in them is gone. Copy anything you want to keep to your own computer before then (see [copying files from Ares](05-first-simulation.md#on-ares-copy-the-plot-to-your-computer)).
 
 **2. Clone this repository:**
 
