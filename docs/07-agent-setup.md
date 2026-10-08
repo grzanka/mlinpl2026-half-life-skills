@@ -113,7 +113,7 @@ Type a question and press Enter. A few keys worth knowing:
 | Key or command | What it does |
 |---|---|
 | `/models` | Switch model |
-| **Tab** | Switch agent (`build` can edit files and run commands, `plan` only reads) |
+| **Shift+Tab** | Switch agent (`build` can edit files and run commands, `plan` only reads) |
 | `/exit` or **Ctrl+C** | Quit |
 
 opencode asks before it runs a command or edits a file. Read what it wants to do before you approve it: that's the habit this whole afternoon is about.
