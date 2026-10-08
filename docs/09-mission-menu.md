@@ -1,6 +1,6 @@
 # Mission menu (16:00–17:15)
 
-[← Worked example: shielding](08-shielding-demo.md) · [Agenda](00-agenda.md)
+[← Worked example: shielding](08-shielding-demo.md) · [Agenda](00-agenda.md) · [Next: agent as explorer →](13-agent-as-explorer.md)
 
 Pick **one** mission and work on it with your agent. Each has its own page with everything you need to copy and paste.
 
@@ -40,7 +40,7 @@ A good plan: start with the guided prompt, compare the agent's proposal with the
 5. **Hunt for a failure mode.** Each page lists the mistakes to look for. Find one the agent made (or nearly made), and note how you caught it.
 6. **Ground the agent on real sources.** Ask it where a number comes from: the Geant4 source, NIST tables, the toolkit's knowledge base. "I remember that" is not a source.
 
-Bring your "the agent got this wrong, and here's how we caught it" story to the [Q&A](00-agenda.md) at 17:40.
+Bring your "the agent got this wrong, and here's how we caught it" story to the [Q&A](14-qa.md) at 17:40.
 
 ## Useful while you work
 
@@ -54,4 +54,4 @@ Bring your "the agent got this wrong, and here's how we caught it" story to the 
 
 ---
 
-[← Worked example: shielding](08-shielding-demo.md) · [Agenda](00-agenda.md)
+[← Worked example: shielding](08-shielding-demo.md) · [Agenda](00-agenda.md) · [Next: agent as explorer →](13-agent-as-explorer.md)

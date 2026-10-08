@@ -89,4 +89,4 @@ So a person standing next to the collimator would get a lethal dose from losing 
 
 ---
 
-[← Mission menu](09-mission-menu.md) · [Agenda](00-agenda.md)
+[← Mission menu](09-mission-menu.md) · [Agenda](00-agenda.md) · [After your mission: agent as explorer →](13-agent-as-explorer.md)

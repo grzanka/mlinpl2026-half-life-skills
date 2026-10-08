@@ -16,8 +16,8 @@ Four hours with one coffee break. The times are targets, and the mission block t
 | 14:45–15:45 | [Agent setup](07-agent-setup.md) and [worked example: shielding](08-shielding-demo.md) | Install [opencode](06-opencode-setup.md), set up the geant4-ai toolkit and connect it to the PLGrid models. Then build a simulation together, stage by stage: does 1 cm of aluminium give more or less dose than 1 mm? | You've explained why the thicker shield gives more dose |
 | 15:45–16:00 | ☕ Break                                                |                                                                                                          |                                                              |
 | 16:00–17:15 | [Mission menu](09-mission-menu.md) (pick one)          | Shelter, snowman or cockroach. Hunt failure modes. Ground the agent on real sources. Run heavier jobs on the cluster. | One plot, plus one "the agent got this wrong and here's how we caught it" story |
-| 17:15–17:40 | Agent as explorer                                      | Point the agent at the results, not the code: parameter scans, sanity checks, visualisation              | One extra plot or table you didn't ask for in the mission     |
-| 17:40–18:00 | Q&A                                                    | Questions about anything from the afternoon: Geant4, the agent, Ares and PLGrid, using this on your own problem | You've asked what you wanted to ask                          |
+| 17:15–17:40 | [Agent as explorer](13-agent-as-explorer.md)           | Point the agent at the results, not the code: parameter scans, sanity checks, visualisation              | One extra plot or table you didn't ask for in the mission     |
+| 17:40–18:00 | [Q&A](14-qa.md)                                        | Questions about anything from the afternoon: Geant4, the agent, Ares and PLGrid, using this on your own problem | You've asked what you wanted to ask                          |
 
 ## Missions
 
@@ -38,6 +38,8 @@ Four hours with one coffee break. The times are targets, and the mission block t
 7. [Setting up the agent: the geant4-ai toolkit](07-agent-setup.md)
 8. [Worked example: does more shielding mean less dose?](08-shielding-demo.md)
 9. [Mission menu](09-mission-menu.md): [fallout shelter](10-mission-fallout-shelter.md), [snowman](11-mission-snowman.md), [cockroach](12-mission-cockroach.md)
+10. [Agent as explorer](13-agent-as-explorer.md)
+11. [Q&A](14-qa.md)
 
 ---
 

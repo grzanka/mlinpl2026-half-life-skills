@@ -91,4 +91,4 @@ The full simulation needs **thicker** walls, because photons that scatter in the
 
 ---
 
-[← Mission menu](09-mission-menu.md) · [Agenda](00-agenda.md) · [Next mission: snowman →](11-mission-snowman.md)
+[← Mission menu](09-mission-menu.md) · [Agenda](00-agenda.md) · [Next mission: snowman →](11-mission-snowman.md) · [After your mission: agent as explorer →](13-agent-as-explorer.md)
