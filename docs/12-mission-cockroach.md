@@ -47,11 +47,28 @@ Before approving, check: does the agent see the statistics problem by itself? Wh
 
 48 events take about 5 minutes on 6 cores. For better statistics, ask the agent to rerun with 500 events as a **batch job on the cluster**, for example: "submit the same run with 500 events as a Slurm batch job on partition cpu, 24 cores, 30 minutes".
 
+## Check the geometry in the GDML Viewer
+
+Before you approve the geometry stage, check what the agent actually built. Print the geometry file in your workspace (`ls runs` shows your run's directory):
+
+```bash
+cat runs/<id>/geometry.gdml
+```
+
+Copy the whole output into the **[GDML Viewer](https://grzanka.github.io/mlinpl2026-half-life-skills/)** on your laptop. It draws the geometry, lists every volume's extent in mm, and runs two checks: no volume sticks out of its mother, and no boxes or spheres overlap. You want the green **Checks passed** box, and a table like this:
+
+| Volume | Material | x (mm) | y (mm) | z (mm) |
+|---|---|---|---|---|
+| Collimator block | `G4_W` | −40 … 40 | −40 … 40 | 0 … 1000 |
+| Cockroach ring | `G4_WATER` | −505 … 505 | −505 … 505 | 995 … 1005 |
+
+The viewer can't check a ring against a block for overlaps (it says so under the checks); here you can see it by eye: the ring's inner radius (495 mm) is far outside the block's corners (57 mm from the axis). Press **Beam's eye** to look along the beam: the block should sit in the middle of the ring.
+
 ## What to check
 
 | Stage | Check |
 |---|---|
-| Geometry | Block **starts** at z = 0 and is 1 m long; the ring doesn't overlap the block (its inner radius is 49.5 cm, the block is 4 cm wide on each side). Look at it in the [GDML Viewer](https://grzanka.github.io/mlinpl2026-half-life-skills/) |
+| Geometry | Block **starts** at z = 0 and is 1 m long; the ring doesn't overlap the block (its inner radius is 49.5 cm, the block is 4 cm wide on each side). [Check it in the GDML Viewer](#check-the-geometry-in-the-gdml-viewer) |
 | Physics | A list made for high energies, such as `FTFP_BERT`, and the agent can say why |
 | Beam | 6.8 **TeV** (not GeV, not MeV) |
 | Scoring | Dose in the water ring, not in the block |

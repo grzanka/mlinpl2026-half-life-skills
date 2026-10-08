@@ -35,7 +35,7 @@ A good plan: start with the guided prompt, compare the agent's proposal with the
    ```
 
    `--auto` saves you from approving every command ([what it does](07-agent-setup.md#fewer-prompts---auto)); leave out `--continue` to start a fresh session.
-3. **Paste the prompt** and approve stage by stage. At the geometry stage, look at it in the [GDML Viewer](https://grzanka.github.io/mlinpl2026-half-life-skills/) ([how](08-shielding-demo.md#look-at-the-geometry)).
+3. **Paste the prompt** and approve stage by stage. **Before approving the geometry**, paste `runs/<id>/geometry.gdml` into the [GDML Viewer](https://grzanka.github.io/mlinpl2026-half-life-skills/): it should show the green **Checks passed** box, and its table should match the one on your mission page.
 4. **Check against the reference values** on the mission page. Don't show them to the agent before it has its own answer.
 5. **Hunt for a failure mode.** Each page lists the mistakes to look for. Find one the agent made (or nearly made), and note how you caught it.
 6. **Ground the agent on real sources.** Ask it where a number comes from: the Geant4 source, NIST tables, the toolkit's knowledge base. "I remember that" is not a source.
@@ -46,7 +46,7 @@ Bring your "the agent got this wrong, and here's how we caught it" story to the 
 
 | You want to | Do this |
 |---|---|
-| See the geometry | `cat runs/<id>/geometry.gdml`, paste into the [GDML Viewer](https://grzanka.github.io/mlinpl2026-half-life-skills/) |
+| Check the geometry | `cat runs/<id>/geometry.gdml`, paste into the [GDML Viewer](https://grzanka.github.io/mlinpl2026-half-life-skills/); also after every change the agent makes to it |
 | See a plot made on Ares | Copy it to your laptop with `scp` ([how](05-first-simulation.md#on-ares-copy-the-plot-to-your-computer)) |
 | Get back to your session | `opencode --auto --continue`, or `/resume` inside opencode ([sessions](07-agent-setup.md#coming-back-to-a-session-resume)) |
 | Rerun without the agent | `cd runs/<id>` and `./run.sh` (`./run.sh smoke` for a quick low-statistics run) |

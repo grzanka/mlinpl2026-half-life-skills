@@ -42,11 +42,28 @@ Everything pinned down; results comparable with the table below:
 
 Each thickness takes about a minute on 6 cores, so the whole scan takes a few minutes.
 
+## Check the geometry in the GDML Viewer
+
+Before you approve the geometry stage, check what the agent actually built. Print the geometry file in your workspace (`ls runs` shows your run's directory):
+
+```bash
+cat runs/<id>/geometry.gdml
+```
+
+Copy the whole output into the **[GDML Viewer](https://grzanka.github.io/mlinpl2026-half-life-skills/)** on your laptop. It draws the geometry, lists every volume's extent in mm, and runs two checks: no volume sticks out of its mother, and no boxes or spheres overlap. You want the green **Checks passed** box, and a table like this:
+
+| Volume | Material | x (mm) | y (mm) | z (mm) |
+|---|---|---|---|---|
+| Wall, here T = 20 cm | `G4_CONCRETE` | −1000 … 1000 | −1000 … 1000 | 0 … 200 |
+| Person (water slab) | `G4_WATER` | −150 … 150 | −150 … 150 | 400 … 410 |
+
+For another thickness T, the wall runs from 0 to T and the slab starts 200 mm behind the wall's back face. If the scan writes one geometry per thickness, check at least the thickest one: it's the one most likely to stick out of the world or swallow the slab.
+
 ## What to check
 
 | Stage | Check |
 |---|---|
-| Geometry | Wall **starts** at z = 0; the person slab is **behind** the wall, 20 cm from its back face, so it moves when T changes. Look at it in the [GDML Viewer](https://grzanka.github.io/mlinpl2026-half-life-skills/) |
+| Geometry | Wall **starts** at z = 0; the person slab is **behind** the wall, 20 cm from its back face, so it moves when T changes. [Check it in the GDML Viewer](#check-the-geometry-in-the-gdml-viewer) |
 | Source | A **plane** source 1 × 1 m, not a point or pencil beam; mono-energetic 662 keV |
 | Scoring | Dose in the water slab, all particles (not only photons that didn't interact) |
 | Scan | Same number of photons for each thickness; T = 0 is a run without the wall |

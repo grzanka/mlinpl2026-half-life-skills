@@ -73,7 +73,7 @@ Ideas for each mission:
 /g4 Which particles carry the energy that reaches my detector in runs/<id>? If the current output can't tell, propose the smallest change to the scoring that would, and how long the rerun would take.
 ```
 
-To see a plot made on Ares, copy it to your laptop ([how](05-first-simulation.md#on-ares-copy-the-plot-to-your-computer)). To look at the geometry again, paste `runs/<id>/geometry.gdml` into the [GDML Viewer](https://grzanka.github.io/mlinpl2026-half-life-skills/).
+To see a plot made on Ares, copy it to your laptop ([how](05-first-simulation.md#on-ares-copy-the-plot-to-your-computer)). Whenever a scan or a follow-up changes the geometry, paste the new `geometry.gdml` into the [GDML Viewer](https://grzanka.github.io/mlinpl2026-half-life-skills/) again before trusting the numbers.
 
 ## Keep it honest
 

@@ -38,12 +38,30 @@ Before approving, ask yourself: is the particle stopped inside the snowman, or d
 
 The run takes a few seconds on 6 cores.
 
+## Check the geometry in the GDML Viewer
+
+Before you approve the geometry stage, check what the agent actually built. Print the geometry file in your workspace (`ls runs` shows your run's directory):
+
+```bash
+cat runs/<id>/geometry.gdml
+```
+
+Copy the whole output into the **[GDML Viewer](https://grzanka.github.io/mlinpl2026-half-life-skills/)** on your laptop. It draws the geometry, lists every volume's extent in mm, and runs two checks: no volume sticks out of its mother, and no boxes or spheres overlap. You want the green **Checks passed** box, and a table like this:
+
+| Volume | Material | x (mm) | y (mm) | z (mm) |
+|---|---|---|---|---|
+| Bottom ball | `Snow` | −300 … 300 | 0 … 600 | −300 … 300 |
+| Middle ball | `Snow` | −200 … 200 | 600 … 1000 | −200 … 200 |
+| Head | `Snow` | −120 … 120 | 1000 … 1240 | −120 … 120 |
+
+Each ball's y range should start exactly where the one below ends. If the viewer reports that two balls **overlap**, the agent has stacked them too close; tell it before you approve. The material column should say your custom snow material, not `G4_WATER`.
+
 ## What to check
 
 | Stage | Check |
 |---|---|
 | Materials | Snow is a **custom** material: water composition, density 0.4 g/cm³ (not `G4_WATER` at 1 g/cm³, and not ice at 0.92) |
-| Geometry | Three spheres that **touch but don't overlap**: the bottom one ends at y = 60 cm where the middle one starts, and the middle one ends at y = 100 cm where the head starts. The overlap check must be clean |
+| Geometry | Three spheres that **touch but don't overlap**: the bottom one ends at y = 60 cm where the middle one starts, and the middle one ends at y = 100 cm where the head starts. The overlap checks must be clean: [the viewer's](#check-the-geometry-in-the-gdml-viewer) and Geant4's |
 | Beam | Pencil beam at y = 30 cm, starting **outside** the snowman |
 | Scoring | Energy per sphere, in MeV, summed over all particles |
 | Results | Energy per proton ≤ 150 MeV (energy conservation!), almost all of it in the bottom sphere |
