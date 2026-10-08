@@ -1,6 +1,6 @@
 # Setting up the agent: the geant4-ai toolkit (14:45)
 
-[← Installing opencode](06-opencode-setup.md) · [Agenda](00-agenda.md)
+[← Installing opencode](06-opencode-setup.md) · [Agenda](00-agenda.md) · [Next: worked example →](08-shielding-demo.md)
 
 The geant4-ai toolkit turns a general coding agent (opencode or Claude Code) into a Geant4 assistant. It provides a knowledge base, templates, helper scripts, an application skeleton, and slash commands such as `/g4-new`.
 
@@ -152,15 +152,9 @@ Watch how it works rather than just the answer: which commands it wants to run (
 >
 > To list materials, particles, physics lists or scoring quantities directly, use `/g4-list` with a category and an optional filter, for example `/g4-list materials ethyl`. It doesn't take free-form questions; those go to `/g4`.
 
-## 7. Start a simulation
+## 7. Next: a simulation, step by step
 
-`/g4-new` starts the pipeline. It needs to know what to simulate, so follow it with a plain-language description of the study. For our worked example:
-
-```text
-/g4-new "150 MeV protons into a 20 x 20 x 40 cm water phantom, score energy deposit in 1 mm slices along the beam, 10000 events, local run."
-```
-
-Approve each stage as the agent goes: geometry, physics, beam, scoring, compile, run, plot. At the end, compare the range with the result you got by hand in the [first simulation](05-first-simulation.md).
+Your agent is ready. We build the first simulation together: [Worked example: does more shielding mean less dose?](08-shielding-demo.md)
 
 ## Which model
 
@@ -178,4 +172,4 @@ Several other models in the list can't use tools at all, so they can't run comma
 
 ---
 
-[← Installing opencode](06-opencode-setup.md) · [Agenda](00-agenda.md)
+[← Installing opencode](06-opencode-setup.md) · [Agenda](00-agenda.md) · [Next: worked example →](08-shielding-demo.md)

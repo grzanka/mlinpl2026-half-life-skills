@@ -11,3 +11,4 @@
 6. [First simulation: proton beam in water](docs/05-first-simulation.md)
 7. [Installing opencode](docs/06-opencode-setup.md)
 8. [Setting up the agent: the geant4-ai toolkit](docs/07-agent-setup.md)
+9. [Worked example: does more shielding mean less dose?](docs/08-shielding-demo.md)

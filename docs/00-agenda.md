@@ -13,7 +13,7 @@ Four hours with one coffee break. The times are targets, and the mission block t
 |-------------|--------------------------------------------------------|----------------------------------------------------------------------------------------------------------|--------------------------------------------------------------|
 | 14:00–14:15 | [Welcome & setup](02-welcome-and-setup.md)             | **Ares:** log in, get a compute node and clone the repositories ([setup](02-welcome-and-setup.md)), then [test](04-test-geant4.md). **Laptop:** [install](03-install-geant4.md), then [test](04-test-geant4.md) | `geant4-config --version` works |
 | 14:15–14:45 | [Geant4 by hand](05-first-simulation.md) (no AI)       | What Geant4 is; geometry, physics, beam and scoring; run the example in this repo, change one parameter, rerun | You've run a simulation and found its Bragg peak             |
-| 14:45–15:45 | [Worked example: beam in water, with the agent](07-agent-setup.md) | Install [opencode](06-opencode-setup.md), set up the geant4-ai toolkit and connect it to the PLGrid models, then drive the agent stage by stage (geometry → physics → beam → scoring → compile → run → plot), approving each step | Your Bragg peak position agrees with NIST PSTAR               |
+| 14:45–15:45 | [Agent setup](07-agent-setup.md) and [worked example: shielding](08-shielding-demo.md) | Install [opencode](06-opencode-setup.md), set up the geant4-ai toolkit and connect it to the PLGrid models. Then build a simulation together, stage by stage: does 1 cm of aluminium give more or less dose than 1 mm? | You've explained why the thicker shield gives more dose |
 | 15:45–16:00 | ☕ Break                                                |                                                                                                          |                                                              |
 | 16:00–17:15 | Mission menu (pick one)                                | Shelter, snowman or cockroach. Hunt failure modes. Ground the agent on real sources. Run heavier jobs on the cluster. | One plot, plus one "the agent got this wrong and here's how we caught it" story |
 | 17:15–17:40 | Agent as explorer                                      | Point the agent at the results, not the code: parameter scans, sanity checks, visualisation              | One extra plot or table you didn't ask for in the mission     |
@@ -36,6 +36,7 @@ Four hours with one coffee break. The times are targets, and the mission block t
 5. [First simulation: proton beam in water](05-first-simulation.md)
 6. [Installing opencode](06-opencode-setup.md)
 7. [Setting up the agent: the geant4-ai toolkit](07-agent-setup.md)
+8. [Worked example: does more shielding mean less dose?](08-shielding-demo.md)
 
 ---
 
