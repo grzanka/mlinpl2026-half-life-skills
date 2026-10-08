@@ -25,7 +25,41 @@ You only ever edit `run.mac`. The C++ stays as it is.
 
 > **On Ares:** work on your compute node, not the login node. Not sure where you are, or opened a new terminal? See [Before you start](04-test-geant4.md#0-before-you-start).
 
-Geant4 must be activated in this terminal ([how to activate it](04-test-geant4.md#1-activate-geant4)), and `tutorial-env.sh` sourced ([how](04-test-geant4.md#set-the-tutorials-environment-ares-and-laptop)).
+**0. Set up this terminal.** If you came straight from [Test the installation](04-test-geant4.md) in the same terminal, this is already done. In a new terminal, or on Ares after a new `srun`, run the lines for your machine.
+
+On Ares, set the tutorial's environment, then load Geant4, CMake and Python:
+
+```bash
+source "$SCRATCH/mlinpl2026-half-life-skills/tutorial-env.sh"
+```
+
+```bash
+module load geant4/11.4.2 cmake/3.31.8-gcccore-14.3.0 python/3.13.5-gcccore-14.3.0
+```
+
+On a laptop, set the tutorial's environment:
+
+```bash
+source "$HOME/mlinpl2026-half-life-skills/tutorial-env.sh"
+```
+
+then activate Geant4, with conda ([Option A](03-install-geant4.md#option-a-conda-miniforge)):
+
+```bash
+source "$HOME/miniforge3/bin/activate" g4
+```
+
+or, if you compiled it from source ([Option B](03-install-geant4.md#option-b-compile-from-source)):
+
+```bash
+source "$HOME/geant4-ai/geant4/install/bin/geant4.sh"
+```
+
+Check that it worked. It should print `11.4.2`:
+
+```bash
+geant4-config --version
+```
 
 **1. Go to this repository:**
 
