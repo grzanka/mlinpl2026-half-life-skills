@@ -1,6 +1,6 @@
 # Welcome & setup (14:00–14:15)
 
-[← Prerequisites](01-prerequisites.md) · [Agenda](00-agenda.md) · [Next: install Geant4 (laptop only) →](03-install-geant4.md)
+[← Prerequisites](01-prerequisites.md) · [Agenda](00-agenda.md) · [Next on Ares: test the installation →](04-test-geant4.md) · [Next on a laptop: install Geant4 →](03-install-geant4.md)
 
 By 14:15 you should have:
 
@@ -63,8 +63,6 @@ uv --version
 
 ## Get the repositories (Ares and laptop)
 
-> Laptop users who followed [Installing Geant4, Step 1](03-install-geant4.md#step-1-everyone-clone-geant4-ai-which-brings-the-geant4-source) already cloned geant4-ai; skip step 3.
-
 **1. Choose where the tutorial files go.** We keep that place in a variable, `TUTORIAL_DIR`, which later commands use. It's set only in this terminal; nothing is written to your shell configuration.
 
 On Ares, use `$SCRATCH`, the scratch filesystem. It's much faster than your home directory, which matters when you compile code and when simulations write their output. It's also much larger, so builds and results won't fill it up:
@@ -92,6 +90,8 @@ git clone https://github.com/grzanka/mlinpl2026-half-life-skills.git "$TUTORIAL_
 ```bash
 git clone --recurse-submodules=external/geant4 --shallow-submodules https://github.com/CTPPS/geant4-ai.git "$TUTORIAL_DIR/geant4-ai"
 ```
+
+> On a laptop, if you followed [Installing Geant4, Step 1](03-install-geant4.md#step-1-everyone-clone-geant4-ai-which-brings-the-geant4-source), you already cloned geant4-ai; skip this step.
 
 **4. Set the tutorial's environment.** [`tutorial-env.sh`](../tutorial-env.sh) sets `TUTORIAL_DIR` and `G4_SOURCE_DIR` (where the Geant4 source is, for the geant4-ai toolkit) and prints them:
 
@@ -125,4 +125,4 @@ We start the agent after the first simulation, which we do by hand. Setup instru
 
 ---
 
-[← Prerequisites](01-prerequisites.md) · [Agenda](00-agenda.md) · [Next: install Geant4 (laptop only) →](03-install-geant4.md) · [Skip to: test the installation →](04-test-geant4.md)
+[← Prerequisites](01-prerequisites.md) · [Agenda](00-agenda.md) · [Next on Ares: test the installation →](04-test-geant4.md) · [Next on a laptop: install Geant4 →](03-install-geant4.md)
