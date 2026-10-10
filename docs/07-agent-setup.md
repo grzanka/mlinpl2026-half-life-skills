@@ -160,10 +160,25 @@ sudo apt-get install -y wl-clipboard xclip
 
 (Fedora: `sudo dnf install -y wl-clipboard xclip`.) To see which session you're on, run `echo $XDG_SESSION_TYPE`.
 
-**On Ares, over SSH, the helper doesn't help.** opencode runs on Ares, which has no desktop and no clipboard of yours. It can only send the OSC 52 code to your terminal, so copying works if your terminal supports OSC 52 and silently fails if it doesn't. Two ways around it, in any terminal:
+**On Ares, over SSH, the helper doesn't help.** opencode runs on Ares, which has no desktop and no clipboard of yours. It can only send the OSC 52 code to your terminal, so copying works if your terminal supports OSC 52 and silently fails if it doesn't.
 
-- **Hold Shift while you drag.** The terminal selects the text itself instead of passing the mouse to opencode. Copy with Ctrl+Shift+C. This only reaches what's on screen, and it can pick up opencode's borders and side panel.
-- **For whole files, copy the file, not the text.** Long files such as `geometry.gdml` don't fit on one screen. Copy the file to your laptop with `scp` ([how](05-first-simulation.md#on-ares-copy-the-plot-to-your-computer)), then load it in the GDML Viewer with **Open file…** or by dropping it onto the page. You can also `cat` it in a second terminal, outside opencode, and copy from there with Ctrl+Shift+C.
+**On Ares, copy with Shift.** This works in any terminal, including Ubuntu's, and needs nothing installed:
+
+1. **Hold Shift** and keep holding it.
+2. **Drag the mouse** over the text you want. While Shift is held, the terminal doesn't pass the mouse to opencode; it selects the text itself, the way it does in a plain shell. opencode doesn't show *Copied to clipboard*: that's expected.
+3. **Press Ctrl+Shift+C** to copy the selection to your laptop's clipboard. You can let go of Shift between steps 2 and 3; the selection stays.
+4. **Paste** with Ctrl+V in a browser, or Ctrl+Shift+V in a terminal.
+
+The terminal copies exactly what it shows, so keep the selection inside opencode's message area. Two limits:
+
+- **Only what's on screen.** The terminal can't scroll opencode's history while you select, so text longer than one screen has to be copied in pieces.
+- **Screen layout comes along.** Lines that opencode wrapped arrive as separate lines, and a selection that runs across the side panel picks it up too.
+
+For a long file, copy the file, not the text (below).
+
+**Or use a terminal that supports OSC 52.** Then plain selection in opencode works over SSH too, the same way as on a laptop. Kitty, WezTerm, Alacritty and foot all support it; kitty, Alacritty and foot come from Ubuntu's package archive, for example `sudo apt-get install -y kitty`. Some may need OSC 52 switched on in their settings; check that terminal's documentation. For the tutorial, Shift+drag in the terminal you already have is less to set up.
+
+**For whole files, copy the file, not the text.** Long files such as `geometry.gdml` don't fit on one screen. Copy the file to your laptop with `scp` ([how](05-first-simulation.md#on-ares-copy-the-plot-to-your-computer)), then load it in the GDML Viewer with **Open file…** or by dropping it onto the page. You can also `cat` it in a second terminal, outside opencode, and copy from there with Ctrl+Shift+C.
 
 ### Fewer prompts: `--auto`
 
