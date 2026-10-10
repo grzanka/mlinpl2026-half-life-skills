@@ -50,7 +50,7 @@ Before you approve the geometry stage, check what the agent actually built. Prin
 cat runs/<id>/geometry.gdml
 ```
 
-Copy the whole output into the **[GDML Viewer](https://grzanka.github.io/mlinpl2026-half-life-skills/)** on your laptop. It draws the geometry, lists every volume's extent in mm, and runs two checks: no volume sticks out of its mother, and no boxes or spheres overlap. You want the green **Checks passed** box, and a table like this:
+Copy the whole output ([how](07-agent-setup.md#copying-text-out-of-opencode)) into the **[GDML Viewer](https://grzanka.github.io/mlinpl2026-half-life-skills/)** on your laptop. It draws the geometry, lists every volume's extent in mm, and runs two checks: no volume sticks out of its mother, and no boxes or spheres overlap. You want the green **Checks passed** box, and a table like this:
 
 | Volume | Material | x (mm) | y (mm) | z (mm) |
 |---|---|---|---|---|

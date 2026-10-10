@@ -1,8 +1,8 @@
 # Installing Geant4: test the installation
 
-[← Install Geant4](03-install-geant4.md) · [Agenda](00-agenda.md) · [Next: first simulation →](05-first-simulation.md)
+[← Welcome & setup (Ares)](02-welcome-and-setup.md) · [← Install Geant4 (laptop)](03-install-geant4.md) · [Agenda](00-agenda.md) · [Next: first simulation →](05-first-simulation.md)
 
-Run these checks in a **new terminal**, so that the changes made during installation take effect.
+On Ares, run these checks on your compute node (see [Before you start](#0-before-you-start)). On a laptop, run them in a **new terminal**, so that the changes made during installation take effect.
 
 ## 0. Before you start
 
@@ -170,4 +170,4 @@ All six checks pass? You're ready. Go to the [first simulation](05-first-simulat
 
 ---
 
-[← Install Geant4](03-install-geant4.md) · [Agenda](00-agenda.md) · [Next: first simulation →](05-first-simulation.md)
+[← Welcome & setup (Ares)](02-welcome-and-setup.md) · [← Install Geant4 (laptop)](03-install-geant4.md) · [Agenda](00-agenda.md) · [Next: first simulation →](05-first-simulation.md)

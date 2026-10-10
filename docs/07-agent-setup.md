@@ -132,6 +132,54 @@ $ cd …/g4work && bash scripts/check_geant4.sh 2>&1 | head -50
 
 Read what it wants to do before you approve it: that's the habit this whole afternoon is about.
 
+### Copying text out of opencode
+
+You'll want to copy things out of opencode: a command, a number, a file to paste into the [GDML Viewer](https://grzanka.github.io/mlinpl2026-half-life-skills/). It doesn't work the way you might expect.
+
+**In a Linux terminal, copy is Ctrl+Shift+C and paste is Ctrl+Shift+V.** Ctrl+C doesn't copy: it interrupts the running program, and in opencode it quits.
+
+**In opencode, select text with the mouse and it's copied straight away.** opencode shows *Copied to clipboard*. Paste with Ctrl+V in a browser or another program, Ctrl+Shift+V in a terminal. Middle-click doesn't paste it.
+
+**Why opencode copies by itself.** Normally the terminal window does the selecting and copying, and the program running inside it never knows. opencode, like most full-screen terminal apps, asks the terminal to pass mouse clicks and scrolling to it instead. So when you drag the mouse, the terminal doesn't select anything. opencode draws the selection itself, and then it has to put the text on your desktop's clipboard on its own.
+
+**Why that needs an extra package on Linux.** A program running in a terminal can only read keys and write text to the screen. It can't reach the desktop's clipboard. To get there, opencode runs a small helper program:
+
+| Your desktop session | Helper | Package |
+|---|---|---|
+| Wayland (Ubuntu's default since 22.04, Fedora's default) | `wl-copy` | `wl-clipboard` |
+| X11 | `xclip` or `xsel` | `xclip` |
+| macOS | `pbcopy` | built in |
+
+Without a helper, opencode falls back to a special terminal code (OSC 52) asking the terminal to put the text on the clipboard. Some terminals do that, including kitty, WezTerm, Alacritty and foot. The GNOME terminals Ubuntu ships, GNOME Terminal and Ptyxis, ignore it. opencode still says *Copied to clipboard*, but nothing reaches the clipboard, and Ctrl+V pastes nothing or whatever you copied earlier.
+
+**The fix, on a Linux laptop.** Install both helpers, so it works on Wayland and X11 alike, then quit and restart opencode:
+
+```bash
+sudo apt-get install -y wl-clipboard xclip
+```
+
+(Fedora: `sudo dnf install -y wl-clipboard xclip`.) To see which session you're on, run `echo $XDG_SESSION_TYPE`.
+
+**On Ares, over SSH, the helper doesn't help.** opencode runs on Ares, which has no desktop and no clipboard of yours. It can only send the OSC 52 code to your terminal, so copying works if your terminal supports OSC 52 and silently fails if it doesn't.
+
+**On Ares, copy with Shift.** This works in any terminal, including Ubuntu's, and needs nothing installed:
+
+1. **Hold Shift** and keep holding it.
+2. **Drag the mouse** over the text you want. While Shift is held, the terminal doesn't pass the mouse to opencode; it selects the text itself, the way it does in a plain shell. opencode doesn't show *Copied to clipboard*: that's expected.
+3. **Press Ctrl+Shift+C** to copy the selection to your laptop's clipboard. You can let go of Shift between steps 2 and 3; the selection stays.
+4. **Paste** with Ctrl+V in a browser, or Ctrl+Shift+V in a terminal.
+
+The terminal copies exactly what it shows, so keep the selection inside opencode's message area. Two limits:
+
+- **Only what's on screen.** The terminal can't scroll opencode's history while you select, so text longer than one screen has to be copied in pieces.
+- **Screen layout comes along.** Lines that opencode wrapped arrive as separate lines, and a selection that runs across the side panel picks it up too.
+
+For a long file, copy the file, not the text (below).
+
+**Or use a terminal that supports OSC 52.** Then plain selection in opencode works over SSH too, the same way as on a laptop. Kitty, WezTerm, Alacritty and foot all support it; kitty, Alacritty and foot come from Ubuntu's package archive, for example `sudo apt-get install -y kitty`. Some may need OSC 52 switched on in their settings; check that terminal's documentation. For the tutorial, Shift+drag in the terminal you already have is less to set up.
+
+**For whole files, copy the file, not the text.** Long files such as `geometry.gdml` don't fit on one screen. Copy the file to your laptop with `scp` ([how](05-first-simulation.md#on-ares-copy-the-plot-to-your-computer)), then load it in the GDML Viewer with **Open file…** or by dropping it onto the page. You can also `cat` it in a second terminal, outside opencode, and copy from there with Ctrl+Shift+C.
+
 ### Fewer prompts: `--auto`
 
 Approving every `ls` gets tedious. Start opencode with `--auto` and it approves permission requests by itself:

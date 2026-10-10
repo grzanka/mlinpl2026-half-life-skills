@@ -89,6 +89,20 @@ sudo dnf install -y git curl python3 gcc-c++ make cmake expat-devel xerces-c-dev
 
 > The `python3` that ships with the macOS command-line tools may be older than 3.10. That's fine: uv fetches a newer Python when it needs one.
 
+**On a Linux desktop, also install the clipboard helpers.** Without them, copying text out of opencode silently fails in Ubuntu's terminal ([why](07-agent-setup.md#copying-text-out-of-opencode)).
+
+Ubuntu / Debian:
+
+```bash
+sudo apt-get install -y wl-clipboard xclip
+```
+
+Fedora / RHEL / Rocky / Alma:
+
+```bash
+sudo dnf install -y wl-clipboard xclip
+```
+
 **Then install uv (all systems):**
 
 ```bash
