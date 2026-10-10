@@ -75,7 +75,7 @@ Before approving stage 2, look at what the agent built. Open the **[GDML Viewer]
 cat runs/*/geometry.gdml
 ```
 
-(With several runs, name the one you mean, e.g. `runs/proton-shield-al/geometry.gdml`.) Copy the whole output and paste it into the viewer. It checks that no volume sticks out of its mother and that no boxes overlap: you want the green **Checks passed** box. It opens in a 3D view; press **Top** to see it from above, with the beam going left to right. The table under the picture lists every volume's extent in mm. For our setup:
+(With several runs, name the one you mean, e.g. `runs/proton-shield-al/geometry.gdml`.) Copy the whole output and paste it into the viewer ([how to copy](07-agent-setup.md#copying-text-out-of-opencode)). It checks that no volume sticks out of its mother and that no boxes overlap: you want the green **Checks passed** box. It opens in a 3D view; press **Top** to see it from above, with the beam going left to right. The table under the picture lists every volume's extent in mm. For our setup:
 
 | Volume | x (mm) | z (mm) |
 |---|---|---|
