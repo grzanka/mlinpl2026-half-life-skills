@@ -50,7 +50,7 @@ export function evaluate(text, names) {
         }
         if (peek() !== ")") fail("missing ) after arguments");
         i++;
-        const f = FUNCTIONS[name];
+        const f = Object.prototype.hasOwnProperty.call(FUNCTIONS, name) ? FUNCTIONS[name] : null;
         if (!f) fail(`unknown function ${name}`);
         return f(...args);
       }
@@ -98,22 +98,160 @@ function unitOf(name, fallback) {
   return u;
 }
 
-const children = (el) => Array.from(el?.children ?? []);
+// An element read by parseXML: the few DOM properties readGDML uses.
+class XmlElement {
+  constructor(tagName) {
+    this.tagName = tagName;
+    this.attributes = new Map();
+    this.children = [];  // child elements
+    this.nodes = [];     // child elements and text, in document order
+  }
+  getAttribute(name) {
+    return this.attributes.get(name) ?? null;
+  }
+  get textContent() {
+    return this.nodes.map((n) => (typeof n === "string" ? n : n.textContent)).join("");
+  }
+}
+
+const PREDEFINED_ENTITIES = { lt: "<", gt: ">", amp: "&", quot: '"', apos: "'" };
+
+// A small XML reader: elements, attributes, text, comments, CDATA; enough for GDML.
+// We don't use the browser's DOMParser: it expands entities declared in a <!DOCTYPE>, so a
+// pasted file could make it use exponential memory ("billion laughs"). Here a <!DOCTYPE> is
+// skipped and its entities are never expanded; only &lt; &gt; &amp; &quot; &apos; and &#...;
+// are. It also lets this file run outside a browser, e.g. in Node.
+function parseXML(text) {
+  const src = text.replace(/^﻿/, "").replace(/\r\n?/g, "\n");
+  let i = 0;
+  const fail = (msg, at = i) => {
+    const line = src.slice(0, at).split("\n").length;
+    throw new Error(`not valid XML (line ${line}: ${msg})`);
+  };
+  const NAME = /[A-Za-z_:À-￿][\w.:·-￿-]*/y;
+  const readName = () => {
+    NAME.lastIndex = i;
+    const m = NAME.exec(src);
+    if (!m) return null;
+    i += m[0].length;
+    return m[0];
+  };
+  const skipSpace = () => {
+    const start = i;
+    while (i < src.length && " \t\n".includes(src[i])) i++;
+    return i > start;
+  };
+  const decode = (s, at) => s.replace(/&([^;&]*);|&/g, (m, ref) => {
+    if (ref === undefined) fail('"&" must be written as &amp;', at);
+    const code = /^#x[0-9a-fA-F]+$/.test(ref) ? parseInt(ref.slice(2), 16)
+      : /^#[0-9]+$/.test(ref) ? parseInt(ref.slice(1), 10) : null;
+    if (code !== null) {
+      if (code > 0x10ffff) fail(`invalid character reference &${ref};`, at);
+      return String.fromCodePoint(code);
+    }
+    if (Object.prototype.hasOwnProperty.call(PREDEFINED_ENTITIES, ref)) return PREDEFINED_ENTITIES[ref];
+    return fail(`unknown entity &${ref}; (entities declared in a <!DOCTYPE> are not supported)`, at);
+  });
+  const until = (end, what) => {
+    const e = src.indexOf(end, i);
+    if (e < 0) fail(`unclosed ${what}`);
+    const body = src.slice(i, e);
+    i = e + end.length;
+    return body;
+  };
+
+  let root = null;
+  const stack = [];
+  const top = () => stack[stack.length - 1];
+  while (i < src.length) {
+    const lt = src.indexOf("<", i);
+    if (lt !== i) {  // text up to the next tag
+      const end = lt < 0 ? src.length : lt;
+      const raw = src.slice(i, end);
+      if (stack.length) top().nodes.push(decode(raw, i));
+      else if (raw.trim()) fail("text outside the top element");
+      i = end;
+    } else if (src.startsWith("<!--", i)) {
+      i += 4;
+      until("-->", "comment");
+    } else if (src.startsWith("<?", i)) {
+      i += 2;
+      until("?>", "<?...?>");
+    } else if (src.startsWith("<![CDATA[", i)) {
+      if (!stack.length) fail("CDATA outside the top element");
+      i += 9;
+      top().nodes.push(until("]]>", "CDATA section"));
+    } else if (src.startsWith("<!DOCTYPE", i)) {
+      // Skip it, including an internal subset [ ... ] with quoted strings inside.
+      if (root) fail("<!DOCTYPE> after the top element");
+      const start = i;
+      let depth = 0;
+      for (i += 9; ;) {
+        if (i >= src.length) fail("unclosed <!DOCTYPE>", start);
+        const c = src[i++];
+        if (c === '"' || c === "'") until(c, "string in <!DOCTYPE>");
+        else if (c === "[") depth++;
+        else if (c === "]") depth--;
+        else if (c === ">" && depth <= 0) break;
+      }
+    } else if (src.startsWith("</", i)) {
+      const at = i;
+      i += 2;
+      const name = readName();
+      skipSpace();
+      if (src[i] !== ">") fail("expected > to end the closing tag");
+      i++;
+      if (!stack.length || top().tagName !== name) {
+        fail(stack.length ? `</${name}> does not match <${top().tagName}>` : `</${name}> without an opening tag`, at);
+      }
+      stack.pop();
+    } else {
+      const at = i;
+      i++;
+      const name = readName();
+      if (!name) fail('"<" must be written as &lt;', at);
+      if (root && !stack.length) fail(`second top element <${name}>`, at);
+      const el = new XmlElement(name);
+      const parent = top();
+      for (;;) {
+        const spaced = skipSpace();
+        if (src.startsWith("/>", i)) { i += 2; break; }
+        if (src[i] === ">") { i++; stack.push(el); break; }
+        if (!spaced) fail(`expected an attribute or the end of <${name}>`);
+        const attrAt = i;
+        const attr = readName();
+        if (!attr) fail(`expected an attribute or the end of <${name}>`);
+        skipSpace();
+        if (src[i] !== "=") fail(`expected = after ${attr}`);
+        i++;
+        skipSpace();
+        const quote = src[i];
+        if (quote !== '"' && quote !== "'") fail(`the value of ${attr} must be in quotes`);
+        i++;
+        const valueAt = i;
+        const raw = until(quote, `value of ${attr}`);
+        if (raw.includes("<")) fail(`"<" in the value of ${attr}`, valueAt);
+        if (el.attributes.has(attr)) fail(`${attr} given twice`, attrAt);
+        el.attributes.set(attr, decode(raw.replace(/[\t\n]/g, " "), valueAt));
+      }
+      if (parent) {
+        parent.children.push(el);
+        parent.nodes.push(el);
+      }
+      root ??= el;
+    }
+  }
+  if (stack.length) fail(`<${top().tagName}> is not closed`);
+  if (!root) fail("no elements");
+  return root;
+}
+
+const children = (el) => el?.children ?? [];
 const first = (el, tag) => children(el).find((c) => c.tagName === tag);
 
 // Read a GDML document. Returns { world, volumes, solids, warnings }.
 export function readGDML(text) {
-  const xmlText = String(text ?? "");
-  if (/<!(DOCTYPE|ENTITY)\b/i.test(xmlText)) {
-    throw new Error("not valid XML (DTD/entity declarations are not allowed)");
-  }
-  const doc = new DOMParser().parseFromString(xmlText, "application/xml");
-  const err = doc.querySelector("parsererror");
-  if (err) {
-    const detail = /error on line[^\n]*/i.exec(err.textContent)?.[0] ?? err.textContent.split("\n")[0];
-    throw new Error("not valid XML (" + detail.trim() + ")");
-  }
-  const root = doc.documentElement;
+  const root = parseXML(String(text ?? ""));
   if (root.tagName !== "gdml") throw new Error(`top element is <${root.tagName}>, expected <gdml>`);
 
   const warnings = [];
