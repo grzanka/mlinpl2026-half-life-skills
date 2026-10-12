@@ -12,7 +12,7 @@ One script, `bootstrap.sh`, sets everything up. It creates a working directory, 
 
 Geant4 must be activated in this terminal, and `G4_SOURCE_DIR` must point to the Geant4 source (see [Test the installation](04-test-geant4.md)).
 
-opencode must be installed ([Installing opencode](06-opencode-setup.md)); `opencode --version` should print `opencode v2.…`.
+opencode must be installed ([Installing opencode](06-opencode-setup.md)); `opencode --version` should print `opencode v2.…`. On Ares, it must also have its own port ([step 4 there](06-opencode-setup.md#1-install-opencode)); otherwise opencode fails with *"Managed service port 49374 … is already in use"* as soon as someone else on your node runs it.
 
 **1. Check the Geant4 version.** It should print `11.4.2`:
 

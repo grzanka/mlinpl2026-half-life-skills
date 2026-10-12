@@ -54,6 +54,21 @@ source "$TUTORIAL_DIR/mlinpl2026-half-life-skills/tutorial-env.sh"
 opencode --version
 ```
 
+**4. On Ares: give your opencode its own port.** opencode 2.x starts a background server the first time you run it, and by default every user's server listens on the same port, `49374`. Ares compute nodes are shared, so whoever on your node starts opencode first takes the port, and everyone else gets:
+
+```text
+Error: Managed service port 49374 on 127.0.0.1 is already in use by another process.
+Configure another port with `opencode service set port <port>` and start the service again.
+```
+
+Avoid it by picking a port from your user ID, which is different for every account. Run this once; opencode remembers it, so you don't repeat it in new terminals or on other nodes:
+
+```bash
+opencode service set port $((40000 + $(id -u) % 20000))
+```
+
+On a laptop you're the only user, so you can skip this step. If you ever see the error above anyway, run the same command and start opencode again.
+
 ## Next: connect it to the PLGrid models
 
 opencode doesn't know the PLGrid models yet. We connect it to them in the directory where you'll use it, the geant4-ai workspace, which you create on the next page: [Setting up the agent](07-agent-setup.md).
