@@ -103,7 +103,11 @@ const first = (el, tag) => children(el).find((c) => c.tagName === tag);
 
 // Read a GDML document. Returns { world, volumes, solids, warnings }.
 export function readGDML(text) {
-  const doc = new DOMParser().parseFromString(text, "application/xml");
+  const xmlText = String(text ?? "");
+  if (/<!(DOCTYPE|ENTITY)\b/i.test(xmlText)) {
+    throw new Error("not valid XML (DTD/entity declarations are not allowed)");
+  }
+  const doc = new DOMParser().parseFromString(xmlText, "application/xml");
   const err = doc.querySelector("parsererror");
   if (err) {
     const detail = /error on line[^\n]*/i.exec(err.textContent)?.[0] ?? err.textContent.split("\n")[0];
